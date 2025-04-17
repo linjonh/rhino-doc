@@ -1,0 +1,75 @@
+title: Rhino
+description: Rhino is an open-source implementation of JavaScript written entirely in Java
+baseurl: "/"
+#remote_theme: pmarsceill/just-the-docs
+remote_theme: just-the-docs/just-the-docs@v0.6.2
+aux_links:
+  "Rhino on GitHub":
+    - "//github.com/mozilla/rhino"
+
+gem:
+  - jekyll-mentions
+#  - jekyll-redirect-from
+
+collections:
+  docs:
+    permalink: "/:collection/:path/"
+    output: true
+  tutorials:
+    permalink: "/:collection/:path/"
+    output: true
+  tools:
+    permalink: "/:collection/:path/"
+    output: true
+
+just_the_docs:
+  collections:
+    docs:
+      name: Documentation
+    tutorials:
+      name: Tutorials
+    tools:
+      name: Tools
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: docs
+    values:
+      layout: "default"
+  -
+    scope:
+      path: ""
+      type: tools
+    values:
+      layout: "default"
+  -
+    scope:
+      path: ""
+      type: tutorials
+    values:
+      layout: "default"
+
+encoding: utf-8
+
+relative_links:
+  enabled: true
+  collections: true
+
+# External navigation links
+nav_external_links:
+  - title: JavaDoc
+    url: https://javadoc.io/doc/org.mozilla/rhino
+    opens_in_new_tab: true
+  - title: Kangax's Compat Tables
+    url: https://mozilla.github.io/rhino/compat/engines.html
+    opens_in_new_tab: true
+
+callouts:
+  warning:
+    color: red
+    opacity: 0.5
+  note:
+    title: Note
+    color: blue
