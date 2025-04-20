@@ -8,22 +8,22 @@ nav_order: 14
 
 
 ---
-Rhino 1.7R1 is a major feature release.
+Rhino 1.7R1是一个主要功能版本。
 
-## JavaScript 1.7 features
+## JavaScript 1.7 功能
 
-As of Rhino1.7R1, Rhino now supports the features of JavaScript 1.7. See [New in JavaScript 1.7](https://web.archive.org/web/20210502042346mp_/https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/1.7). JavaScript 1.7 supports the following features:
+从Rhino1.7R1开始，Rhino现在支持JavaScript 1.7的功能。请参阅[JavaScript 1.7的新功能](https://web.archive.org/web/20210502042346mp_/https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/1.7)。JavaScript 1.7支持以下功能：
 
-- Generators and iterators
-- Array comprehensions
-- Block scope with let
-- Destructuring assignment
+- 生成器和迭代器
+- 数组推导
+- 使用let的块作用域
+- 解构赋值
 
-To enable JavaScript 1.7 support, you must set the version as 170 using the `Context.setLanguageVersion()` API call. If you are using the Rhino shell, you can specify `-version 170` on the command line or call `version(170)` in code executed by the shell.
+要启用JavaScript 1.7支持，必须使用`Context.setLanguageVersion()` API调用将版本设置为170。如果您使用Rhino shell，可以在命令行上指定`-version 170`，或者在shell执行的代码中调用`version(170)`。
 
-## Creating a JavaScript `Iterator` from a Java `Iterable` or `Iterator`
+## 从Java `Iterable`或`Iterator`创建JavaScript `Iterator`
 
-In an extension to JavaScript 1.7, Rhino now supports creating JavaScript `Iterators` from [java.lang.Iterable](https://java.sun.com/javase/6/docs/api/java/lang/Iterable.html) and [java.util.Iterator](https://java.sun.com/javase/6/docs/api/java/util/Iterator.html) objects. For example:
+作为对JavaScript 1.7的一个扩展，Rhino现在支持从[java.lang.Iterable](https://java.sun.com/javase/6/docs/api/java/lang/Iterable.html)和[java.util.Iterator](https://java.sun.com/javase/6/docs/api/java/util/Iterator.html)对象创建JavaScript `Iterators`。例如：
 
 ```
 js> m = new java.util.LinkedHashMap()
@@ -38,74 +38,32 @@ js> for (i in Iterator(m.values().iterator())) print(i)
 2.0
 ```
 
-Note that `for (i in m.values())` will still iterate over the properties of the object returned by `m.values()`, i.e., the names of all the methods of `java.util.HashMap$Values`. This was done so as not to compromise backwards compatibility.
+注意，`for (i in m.values())`仍然会遍历`m.values()`返回的对象的属性，即`java.util.HashMap$Values`的所有方法名称。这样做是为了不破坏向后兼容性。
 
-## DOM3 E4X implementation preferred
+## DOM3 E4X实现更受青睐
 
-As of Rhino 1.7R1, the E4X implementation based on DOM3 is now preferred over the XMLBeans implementation. Previously the XMLBeans implementation would be used if present in the classpath; now it will be used only if DOM3 is not supported on the version of Java running Rhino (i.e., before JDK 1.5), or if explicitly specified by overriding `ContextFactory.getE4xImplementationFactory()`.
+从Rhino 1.7R1开始，基于DOM3的E4X实现现在比XMLBeans实现更受青睐。以前，如果XMLBeans实现存在于类路径中，则会使用它；现在只有在运行Rhino的Java版本不支持DOM3（即JDK 1.5之前）时才会使用它，或者通过覆盖`ContextFactory.getE4xImplementationFactory()`显式指定。
 
-## Support for JDK 1.4 through separate JAR file
+## 支持通过独立JAR文件的JDK 1.4
 
-We now require at least JDK 1.5 in order to compile Rhino sources. As a result, the `js.jar` in the binary distribution is not runnable with JDK 1.4. In order to support people running Rhino on JDK 1.4, we use [Retrotranslator](http://retrotranslator.sourceforge.net/) to produce `js-14.jar`, which is compatible with JDK 1.4. `js-14.jar` is also in the binary distribution and can be built from source using ant.
-JDK 1.4 support will be dropped entirely from Rhino in a future release.
+我们现在需要至少JDK 1.5才能编译Rhino源代码。因此，二进制分发版中的`js.jar`无法在JDK 1.4上运行。为了支持那些在JDK 1.4上运行Rhino的人，我们使用[Retrotranslator](http://retrotranslator.sourceforge.net/)生成`js-14.jar`，它与JDK 1.4兼容。`js-14.jar`也包含在二进制分发版中，可以从源代码中使用ant构建。
 
-## Support for instruction threshold callbacks in compiled mode
+## 编译模式下支持指令阈值回调
 
-It's now possible to request instruction callbacks for compiled scripts. This is primarily used to enforce instruction quotas for untrusted scripts. See [bug 397680](https://bugzilla.mozilla.org/show_bug.cgi?id=397680).
+现在可以为编译后的脚本请求指令回调。有关详细信息，请参阅[Debugger documentation](https://developer.mozilla.org/en-US/docs/New_in_JavaScript_1.7#Debugger)。
 
-## `debugger` keyword
+## 调试器必须在下载后自行构建
 
-Fix [bug 386997](https://bugzilla.mozilla.org/show_bug.cgi?id=386997) - Need to support 'debugger' statement
-
-Adding the 'debugger' keyword will now result in a breakpoint being hit when run in the Rhino debugger. The statement is ignored if the debugger is not running or when compiled to Java bytecodes.
-
-## Common package names preloaded
-
-Prior to 1.7R1, Java classes in packages starting with "java." could be referenced directly, while classes in other packages would need to use the "Packages" object first. Now the following top-level packages are available, like "java", in the global scope: "javax", "org", "com", "edu", and "net".
-
-## Array and String generics
-
-See [New in JavaScript 1.6](https://web.archive.org/web/20210502042346mp_/https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/1.6). This feature is now implemented in Rhino.
-
-## Configurable prompts in the shell
-
-If a global variable `prompts` is defined, is an object, and has elements 0 and 1 defined, the shell will use element 0 as the prompt and element 1 as the continuation prompt. If the array elements are functions, Rhino will call them:
-
-```
-js> function f() {
-  >   return 3;
-  > }
-js> f();
-3
-js> var prompts = true;
-js> var prompts = true; // won't affect shell prompts
-js> var prompts = [">>> ", "... "];
->>> function g() {
-...   return 3;
-... }
->>> g()
-3
->>> var prompts = {count:0, 0:function(){ return this.count++ + "> "; }, 1:">> "};
-0> function h() {
->>   return 5;
->> }
-1> h();
-5
-2>
-```
-
-## Debugger must be built after download
-
-Well, this isn't a feature, but to ensure we're not shipping binaries built from sources that are not available under an open source license, you must download some source files and build the debugger yourself. Here's how to do it:
+这不是一个功能，但为了确保我们不发布从非开放源代码许可证下获得的源代码构建的二进制文件，您必须下载一些源文件并自己构建调试器。以下是操作方法：
 
 - `unzip rhino1_7R1.zip`
 - `cd rhino1_7R1`
 - `ant compile-debugger`
 
-Now `js.jar` contains the sources needed to run the debugger:
+现在`js.jar`包含运行调试器所需的源代码：
 
 ```
-java -cp js.jar org.mozilla.javascript.tools.debugger.Main test.js
+java -cp js.jar org.mozilla.javascript.tools.debuger.Main test.js
 ```
 
-And if anyone would like to contribute changes that allow us to build the debugger without depending on these closed-source licenses, we'd be happy to take those changes into Rhino.
+如果有人愿意贡献更改，以便我们可以在不依赖这些封闭源代码许可证的情况下构建调试器，我们将很乐意见到这些更改并将其合并到Rhino中。

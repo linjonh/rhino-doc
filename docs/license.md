@@ -1,19 +1,23 @@
 ---
-title: "License"
+title: "许可证"
 nav_order: 5
 ---
-# License
+
+# 许可证
 
 
 ---
 
-Rhino is open source and as of release 1.7R4 Rhino available under [MPL 2.0](https://github.com/mozilla/rhino/blob/master/LICENSE.txt). Versions prior to 1.7R4 are released under [MPL 1.1/GPL 2.0](https://www.mozilla.org/MPL/) license.
+Rhino 是开源软件，自1.7R4版本起，Rhino根据 [MPL 2.0](https://github.com/mozilla/rhino/blob/master/LICENSE.txt) 开源。1.7R4之前的版本根据 [MPL 1.1/GPL 2.0](https://www.mozilla.org/MPL/) 许可证发布。
 
-## Additional licenses
-Few parts of the overall Rhino codebase are distributed under a different license
+## 其他许可证
+Rhino代码库的一部分采用了不同的许可证进行分发
 
-### Google V8 floating-point conversion code & test suite
-Portions of the floating-point conversion code, and portions of the test suite come from the Google V8 JavaScript engine and are copyrighted by the V8 authors, see [NOTICE.txt](https://github.com/mozilla/rhino/blob/master/NOTICE.txt)
+### Google V8 浮点转换代码 & 测试套件
+一部分浮点转换代码和测试套件来自Google V8 JavaScript引擎，版权归V8作者所有，详见 [NOTICE.txt](https://github.com/mozilla/rhino/blob/master/NOTICE.txt)
 
-### License for part of the Rhino Debugger
-The files in [rhino-tools/src/main/java/org/mozilla/javascript/tools/debugger/treetable](https://github.com/mozilla/rhino/tree/master/rhino-tools/src/main/java/org/mozilla/javascript/tools/debugger/treetable) are copyrighted by Sun Microsystems, Inc., see [NOTICE-tools.txt](https://github.com/mozilla/rhino/blob/master/NOTICE-tools.txt)
+### Rhino 调试器部分的许可证
+目录 [rhino-tools/src/main/java/org/mozilla/javascript/tools/debugger/treetable](https://github.com/mozilla/rhino/tree/master/rhino-tools/src/main/java/org/mozilla/javascript/tools/debugger/treetable) 中的文件版权归Sun Microsystems, Inc.所有，详见 [NOTICE-tools.txt](https://github.com/mozilla/rhino/blob/master/NOTICE-tools.txt)
+```
+
+希望这对你有帮助！

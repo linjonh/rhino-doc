@@ -1,17 +1,16 @@
 ---
-title: History
+title: 历史
 nav_order: 4
 ---
-# History
 
+# 历史
 
----
-Rhino gets its name from the animal on the cover of the [O'Reilly](https://www.ora.com/) book about JavaScript.
+Rhino 得名于 [O'Reilly](https://www.ora.com/) 出版社关于 JavaScript 的书籍封面上的动物。
 
-The Rhino project was started at Netscape in the autumn of 1997. At the time, Netscape was planning to produce a version of Navigator written entirely in Java and so it needed an implementation of JavaScript written in Java. When Netscape stopped work on "Javagator," as it was called, somehow Rhino escaped the axe (rumor had it that the executives "forgot" it existed). For a time, a couple of major companies (including Sun) licensed Rhino for use in their products and paid Netscape to do so, allowing work on Rhino to continue. Now Rhino is part of Mozilla's open-source repository.
+Rhino 项目于 1997 年秋季在 Netscape 发起。当时，Netscape 计划生产一种完全用 Java 编写的 Navigator 版本，因此需要一个用 Java 编写的 JavaScript 实现。然而，当 Netscape 停止了“Javagator”（其昵称）的开发时，Rhino 协议不知何故逃脱了被取消的命运（有传言称，高管们“忘记”了它的存在）。一段时间内，几家主要公司（包括 Sun 公司）获得了 Rhino 的许可证，并支付费用以将其用于他们的产品，从而使得 Rhino 的开发工作得以继续。如今，Rhino 已成为 Mozilla 开源代码库的一部分。
 
-Originally, Rhino compiled all JavaScript code to Java bytecodes in generated classfiles. This produced the best performance (often beating the C implementation of JavaScript when run on a JIT), but suffered from two faults. First, compilation time was long since generating Java bytecodes and loading the generated classes was a heavyweight process. Also, the implementation effectively leaked memory since most JVMs don't really collect unused classes or the strings that are interned as a result of loading a class file.
+最初，Rhino 会将所有 JavaScript 代码编译为 Java 字节码，并生成相应的类文件。这一做法带来了最佳性能（通常在 JIT 上运行时甚至超过了 C 实现的 JavaScript），但也存在两个主要缺陷。首先，由于生成 Java 字节码和加载生成的类文件是一个重量级过程，因此编译时间较长。其次，由于大多数 JVM 并不会真正收集未使用的类或在加载类文件时内部化的字符串，这一实现实际上存在内存泄漏问题。
 
-So in fall of 1998, Rhino added an interpretive mode. The classfile generation code was moved to an optional, dynamically-loaded package. Compilation is faster and when scripts are no longer in use they can be collected like any other Java object.
+因此，到了 1998 年秋季，Rhino 增加了一个解释模式。将类文件生成代码移到了一个可选的、动态加载的包中。这样不仅加快了编译速度，而且当脚本不再使用时，可以像任何其他 Java 对象一样进行垃圾回收。
 
-Rhino was released to mozilla.org in April 1998. Originally Rhino classfile generation had been held back from release. However the licensees of Rhino have now agreed to release all of Rhino to open source, including class file generation. Since its release to open source, Rhino has found a variety of [uses](users.html) and an increasing number of people have contributed to the code.
+Rhino 于 1998 年 4 月发布到 mozilla.org。最初，Rhino 的类文件生成功能被保留并未发布。但现在，Rhino 的许可方已同意将 Rhino 的所有功能开放源代码，包括类文件生成。自开源发布以来，Rhino 已经被用于多种用途，并有越来越多的人为其代码做出了贡献。

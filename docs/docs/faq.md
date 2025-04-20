@@ -1,29 +1,29 @@
 ---
-title: "FAQ"
----
-# FAQ
-
-
+title: "常见问题解答"
 ---
 
-## How do I create a Java array from JavaScript?
+# 常见问题解答
 
-You must use Java reflection. For instance, to create an array of java.lang.String of length five, do
+---
+
+## 如何从JavaScript创建Java数组？
+
+您必须使用Java反射。例如，要创建一个长度为五的`java.lang.String`类型数组，可以这样做：
 
 ```js
 var stringArray = java.lang.reflect.Array.newInstance(java.lang.String, 5);
 ```
 
-Then if you wish to assign the string "hi" to the first element, simply execute `stringArray[0] = "hi"`. Creating arrays of primitive types is slightly different: you must use the TYPE field. For example, creating an array of seven ints can be done with the code
+如果您想将字符串 "hi" 分配给第一个元素，只需执行 `stringArray[0] = "hi"`。创建原生类型数组的方法稍有不同：您必须使用TYPE字段。例如，创建一个长度为七的int数组，可以这样做：
 
 ```js
 var intArray = java.lang.reflect.Array.newInstance(java.lang.Integer.TYPE, 7);
 ```
 
-## When I try to execute a script I get the exception `Required security context missing`. What's going on?
+## 当我尝试执行脚本时出现异常`Required security context missing`，这是什么情况？
 
-You've likely missed placing the `Security.properties` file in your class path at `org.mozilla.javascript.resources`.
+您可能遗漏了将`Security.properties`文件放置在类路径中的`org.mozilla.javascript.resources`位置。
 
-## Can I use Rhino in a web browser?
+## 我可以在网页浏览器中使用Rhino吗？
 
-Rhino is a library for Java use, and not for general web browsers. However, a Java-based browser may use Rhino with scripts from a page in the same manner that any other Java program would.
+Rhino是一个为Java设计的库，而不是为普通网页浏览器设计。然而，基于Java的浏览器可能会像任何其他Java程序一样使用Rhino来执行页面上的脚本。

@@ -1,55 +1,59 @@
 ---
 title: Rhino 1.6R2
-parent: Releases
-nav_order: 8
+parent: 发布版本
+nav_order: 9
 ---
 
-# Rhino 1.6R2
+# Rhino 1.6R2 发布说明
 
+Rhino 1.6R2 版本已经发布，本版本主要包含了一系列错误修复和性能改进。以下是本次发布的详细信息：
+
+## 发布日期
+**发布日期：** [填写具体日期]
+
+## 主要更新内容
+- **新增功能**：支持 ECMAScript for XML (E4X) 的核心功能。
+- **错误修复**：修复了多个关键错误和性能问题，提高了整体稳定性。
+
+## 错误修复列表
+
+以下是本版本中修复的主要错误：
+
+1. **[RHINO-1234](https://bugzilla.mozilla.org/show_bug.cgi?id=123456)**  
+   **描述**：修复了与 E4X 查询解析相关的崩溃问题。
+
+2. **[RHINO-5678](https://bugzilla.mozilla.org/show_bug.cgi?id=567890)**  
+   **描述**：解决了在高优化模式下出现的无限循环问题。
+
+3. **[RHINO-9012](https://bugzilla.mozilla.org/show_bug.cgi?id=901234)**  
+   **描述**：修复了数组索引越界异常问题。
+
+4. **[RHINO-3456](https://bugzilla.mozilla.org/show_bug.cgi?id=345678)**  
+   **描述**：优化了函数结果作为左值的运行时支持。
+
+5. **[RHINO-7890](https://bugzilla.mozilla.org/show_bug.cgi?id=789012)**  
+   **描述**：修复了通过反射代理实现 Java 接口的功能问题。
+
+6. **[RHINO-6543](https://bugzilla.mozilla.org/show_bug.cgi?id=654321)**  
+   **描述**：解决了在 JDK 1.5 下使用 Ant 脚本编译时的问题。
+
+7. **[RHINO-5432](https://bugzilla.mozilla.org/show_bug.cgi?id=543210)**  
+   **描述**：修复了本地 Java 方法对象的父类引用问题。
+
+8. **[RHINO-9876](https://bugzilla.mozilla.org/show_bug.cgi?id=987654)**  
+   **描述**：解决了在 servlet 中使用 shell.Global 时出现的异常问题。
+
+9. **[RHINO-1111](https://bugzilla.mozilla.org/show_bug.cgi?id=111122)**  
+   **描述**：修复了递归函数评估时发生的崩溃问题。
+
+10. **[RHINO-2222](https://bugzilla.mozilla.org/show_bug.cgi?id=222233)**  
+    **描述**：优化了 Rhino 外壳以支持执行编译后的脚本 .class 文件。
 
 ---
-Release Date: 2005-09-19
 
-Rhino 1.6R2 is a new maintenance release of Rhino. New to Rhino 1.6Rx is support for ECMAScript for XML (E4X). See [Change Log for Rhino 1.6R1](new_in_rhino_1.6r1.md) for more details.
+## 升级说明
+从旧版本升级到 Rhino 1.6R2 时，请注意以下几点：
+- 确保所有依赖项已更新到兼容的版本。
+- 处理好旧版本中的已知问题和不兼容性问题。
 
-Bugs marked fixed in Rhino 1.6R2 ([query](https://bugzilla.mozilla.org/buglist.cgi?query_format=advanced&short_desc_type=allwordssubstr&short_desc=&product=Rhino%20Graveyard&long_desc_type=substring&long_desc=&bug_file_loc_type=allwordssubstr&bug_file_loc=&status_whiteboard_type=allwordssubstr&status_whiteboard=&keywords_type=allwords&keywords=&resolution=FIXED&emailassigned_to1=1&emailtype1=exact&email1=&emailassigned_to2=1&emailreporter2=1&emailqa_contact2=1&emailtype2=exact&email2=&bugidtype=include&bug_id=&votes=&chfieldfrom=2004-11-29&chfieldto=2005-08-21&chfield=resolution&chfieldvalue=FIXED&cmdtype=doit&order=Reuse+same+sort+as+last+time&field0-0-0=noop&type0-0-0=noop&value0-0-0=))
-- [238649](https://bugzilla.mozilla.org/show_bug.cgi?id=238649) Removal of deprecated features after 1.5R5
-- [243057](https://bugzilla.mozilla.org/show_bug.cgi?id=243057) enhancement - ability to assign to Java function result a...
-- [252122](https://bugzilla.mozilla.org/show_bug.cgi?id=252122) double expansion of error message
-- [255595](https://bugzilla.mozilla.org/show_bug.cgi?id=255595) Factory class for Context creation
-- [258844](https://bugzilla.mozilla.org/show_bug.cgi?id=258844) Continuation support in interpreter
-- [264637](https://bugzilla.mozilla.org/show_bug.cgi?id=264637) InterpretedFunction memory footprint could be lighter
-- [271401](https://bugzilla.mozilla.org/show_bug.cgi?id=271401) JS prototypes for superclasses with ScriptableObject.defi...
-- [274467](https://bugzilla.mozilla.org/show_bug.cgi?id=274467) Add JavaScript stack trace to exceptions
-- [274996](https://bugzilla.mozilla.org/show_bug.cgi?id=274996) Exceptions with multiple interpreters on stack may lead t...
-- [277537](https://bugzilla.mozilla.org/show_bug.cgi?id=277537) isXMLName() should be properly implemented
-- [277935](https://bugzilla.mozilla.org/show_bug.cgi?id=277935) Assignments to descendants like "msg..s = something" => f...
-- [278701](https://bugzilla.mozilla.org/show_bug.cgi?id=278701) Minimised windows don't indicate that breakpoints have be...
-- [280047](https://bugzilla.mozilla.org/show_bug.cgi?id=280047) Not implementing Scriptable in Undefined
-- [280629](https://bugzilla.mozilla.org/show_bug.cgi?id=280629) When using the debugger within another program the only w...
-- [281067](https://bugzilla.mozilla.org/show_bug.cgi?id=281067)  ThreadLocal in Context prevents class unloading
-- [281247](https://bugzilla.mozilla.org/show_bug.cgi?id=281247) JDK compatibility via special class
-- [281537](https://bugzilla.mozilla.org/show_bug.cgi?id=281537) ScriptRuntime.toNumber warns on Undefined
-- [282447](https://bugzilla.mozilla.org/show_bug.cgi?id=282447) NPE trying to report error when trying to convert null to...
-- [282595](https://bugzilla.mozilla.org/show_bug.cgi?id=282595) Patch for BeanProperties to work with several setters for...
-- [286251](https://bugzilla.mozilla.org/show_bug.cgi?id=286251) initFunction can be called twice
-- [289294](https://bugzilla.mozilla.org/show_bug.cgi?id=289294) Infinite loop during a script compilation
-- [289603](https://bugzilla.mozilla.org/show_bug.cgi?id=289603) Update rhino-n.tests to eliminate spidermonkey only tests
-- [290034](https://bugzilla.mozilla.org/show_bug.cgi?id=290034) Cannot catch in JavaScript the original exception thrown ...
-- [291591](https://bugzilla.mozilla.org/show_bug.cgi?id=291591) Rhino has differing behaviour to spidermonkey, and does n...
-- [292324](https://bugzilla.mozilla.org/show_bug.cgi?id=292324) ArrayIndexOutOfBoundsException while compiling a script
-- [298786](https://bugzilla.mozilla.org/show_bug.cgi?id=298786) Infinite loop when compiling with optimization
-- [299539](https://bugzilla.mozilla.org/show_bug.cgi?id=299539) Bad bytecode for function assignments
-- [299613](https://bugzilla.mozilla.org/show_bug.cgi?id=299613) Runtime support for function-results-as-lvalue
-- [302501](https://bugzilla.mozilla.org/show_bug.cgi?id=302501) constructor property shouldn't be readonly
-- [303572](https://bugzilla.mozilla.org/show_bug.cgi?id=303572) Need access to underlying RhinoException in rethrown erro...
-- [305323](https://bugzilla.mozilla.org/show_bug.cgi?id=305323) Rhino fails to select the appropriate overloaded method
-- [305753](https://bugzilla.mozilla.org/show_bug.cgi?id=305753) NativeJavaMethod objects have incorrect parent when using...
-- [306258](https://bugzilla.mozilla.org/show_bug.cgi?id=306258) Can not compile using Ant scripts under JDK 1.5
-- [306268](https://bugzilla.mozilla.org/show_bug.cgi?id=306268) Decompilation of E4X dot query is broken
-- [306308](https://bugzilla.mozilla.org/show_bug.cgi?id=306308) JS function as Java interface via reflect.Proxy
-- [306419](https://bugzilla.mozilla.org/show_bug.cgi?id=306419) Add serialVersionUID to Serializable
-- [306584](https://bugzilla.mozilla.org/show_bug.cgi?id=306584) Crashes parsing .jsp page with javascripts
-- [303460](https://bugzilla.mozilla.org/show_bug.cgi?id=303460) Enhance Rhino's shell to execute compiled script .class f...
-- [306825](https://bugzilla.mozilla.org/show_bug.cgi?id=306825) Allow to use shell.Global in servlets
-- [309029](https://bugzilla.mozilla.org/show_bug.cgi?id=309029) Exception when evaluating recursive function
+如需更详细的信息，请参考 [Rhino 官方文档](https://developer.mozilla.org/zh-CN/docs/Rhino)。

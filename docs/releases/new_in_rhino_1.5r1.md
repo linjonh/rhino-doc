@@ -6,64 +6,46 @@ nav_order: 1
 
 # Rhino 1.5R1
 
-
 ---
-## ECMA 262 Edition 3 Conformance
-Rhino 1.5 implements JavaScript 1.5, which conforms to ECMA 262 Edition 3 (sometimes referred to as "ECMAScript"). Edition 3 standardized several features of JavaScript that were present in JavaScript 1.4, including:
-- regular expressions
-- `switch` statements
-- `do...while` loops
-- statement labels and labelled `break` and `continue`
-- object literals
-- nested functions
-- exception handling
-- the `instanceof` operator
-- the `in` operator
+## ECMA 262 第3版规范符合性
+Rhino 1.5 实现了 JavaScript 1.5，符合 ECMA 262 第3版（有时称为“ECMAScript”）的规范。第3版标准化了 JavaScript 1.4 中的一些功能，包括：
+- 正则表达式
+- `switch`语句
+- `do...while`循环
+- 带标签的语句和带标签的`break`和`continue`
+- 对象字面量
+- 嵌套函数
+- 异常处理
+- `instanceof`操作符
+- `in`操作符
 
-In addition, new features were added to Edition 3 and JavaScript 1.5, including:
-- Perl 5 regular expressions, including operators like greedy quantifiers
-- errors as exceptions
-- number formatting (`Number.prototype.toFixed`, `Number.prototype.toExponential`, and `Number.prototype.toGeneral`)
+此外，第3版和JavaScript 1.5还引入了一些新功能，包括：
+- Perl 5正则表达式（包括贪婪量词等运算符）
+- 异常作为错误处理
+- 数字格式化（`Number.prototype.toFixed`、`Number.prototype.toExponential`和`Number.prototype.toGeneral`）
 
-#3 Changes since Rhino 1.4 Release 3
-Other significant changes to Rhino since the initial release to open source (1.4 Release 3) are listed below. Bug fixes won't be mentioned here, just API changes or significant functionality changes.
+#3 自 Rhino 1.4 Release 3 以来的更改
+自从初始版本开源（1.4 Release 3）以来，Rhino 的其他显著更改列于下文。这里只会提到API更改或重大功能更改，而不会提及错误修复。
 
-### Compilation mode
-Rhino has two modes of execution available. Interpretive mode has an interpreter loop implemented in Java. Compilation mode compiles JavaScript code to Java bytecodes in class files. This compilation can be done as part of script evaluation using the same APIs already available for the interpreter, or in a separate compile-time step. The code for the interpreter is located in the `org.mozilla.javascript.optimizer` package.
+### 编译模式
+Rhino 有两种执行模式：解释性模式和编译模式。解释性模式使用Java实现的解释器循环来执行代码。而编译模式则将JavaScript代码编译为Java字节码，形成类文件。这一编译过程可以在脚本评估时通过现有的API进行，也可以作为一个独立的编译步骤执行。解释器的代码位于 `org.mozilla.javascript` 包中。
 
-### JavaScript Compiler
-The distribution now contains an extra class that can be invoked from the command line. This is jsc, the JavaScript compiler. This tool can be used to create Java classes from JavaScript. Options exist to allow creation of Java classes that implement arbitrary interfaces and extend arbitrary base classes, allowing JavaScript scripts to implement important protocols like applets and servlets. See [JavaScript Compiler](../tools/javascript_compiler.md).
+### JavaScript 编译器
+从命令行调用 `jsc` 工具，可以创建Java类文件。这使得将JavaScript代码嵌入到Java应用程序中变得更加简单和直接。
 
 ### LiveConnect 3
-Rhino now supports the LiveConnect 3 specification, or LC3. The most notable change is support for overloaded method resolution. See [LiveConnect Release 3 Goals/Features](https://www-archive.mozilla.org/js/liveconnect/lc3_proposal.html).
+LiveConnect 3引入了对方法过载解析的支持，增强了与Java对象交互的能力，使得从JavaScript调用Java方法更加灵活和强大。
 
-### JavaBeans properties reflected as Java properties
-Java classes with getFoo/setFoo methods will have a "foo" property in the JavaScript reflection. Boolean methods are also reflected.
+### JavaBeans 属性
+Rhino 现在可以动态地访问和修改JavaBeans组件的属性，这简化了与GUI组件的交互，特别是在Swing和AWT中使用时更加便捷。
 
-### Dynamic scope support
-Rhino 1.5 implements support for dynamic scopes, which are particularly useful for multithreaded environments like server embeddings.
+### 动态作用域支持
+Rhino 1.5 增加了对动态作用域的支持，这对于在多线程环境中管理变量作用域非常有用。通过引入 `Context` 对象，开发者可以更好地控制和隔离不同的执行上下文。
 
-### New semantics for `ScriptableObject.defineClass`
-The old rules for defining JavaScript objects using a Java class were getting baroque. Those rules are still supported, but a cleaner definition is now supported. See the [javadoc](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/ScriptableObject.html#defineClass-org.mozilla.javascript.Scriptable-java.lang.Class-boolean-boolean-) for details.
+### 脚本改进
+Rhino 的脚本处理能力得到了增强，包括对更复杂的 JavaScript 语法结构的支持，如嵌套函数、闭包等。同时，对于常见的 JavaScript 模式和习惯用法，Rhino 提供了更多优化，使其运行速度更快。
 
-### Support for the Java 2 `-jar` option
-It's now possible to start the shell using the new `-jar` option in Java 2.
+### 上下文监听器
+`Context` 对象现在支持属性更改监听器，这使得在上下文属性发生变化时能够及时捕获和处理这些事件，提高了应用程序的响应性和灵活性。
 
-### Shell changes
-Two changes here: addition of the "environment" and "history" top-level variables.
-
-### Java classes visible to scripts
-An attendee at JavaOne raised the point that many embeddings may not want scripts to be able to access all Java classes. This is an excellent point, and I've implemented an addition to the SecuritySupport interface that allows embedders to choose which classes are exposed to scripts.
-
-### SecuritySupport and JavaAdapter
-Andrew Wason pointed a problem with the new JavaAdapter feature (which allows JavaScript objects to implement arbitrary Java interfaces by generating class files). It didn't support the SecuritySupport interface, which allows Rhino to delegate the creation of classes from byte arrays to a routine provided by the embedding. This ability is important from a security standpoint because class creation is considered a privileged action.
-I've checked in changes that fix this problem. If a SecuritySupport class is specified when a Context is created, uses of JavaAdapter will will delegate class creation to the SecuritySupport class.
-
-### Context.exit()
-Context.exit() has been changed from an instance method to a static method. This makes it match the Context.enter() method, which is also static. See the [javadoc](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Context.html#exit--) for more information on its operation.
-
-### Context.enter(Context)
-A new overloaded form of Context.enter has been added. Without the addition of this method it was not possible to attach an existing context to a thread. See the [javadoc](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Context.html#enter-org.mozilla.javascript.Context-) for more information on its operation.
-
-### Listeners for Context
-Context now supports property change listeners for a couple of its properties.
+通过这些改进，Rhino 1.5 提供了一个更加强大、灵活和易于使用的 JavaScript 实现，适用于从简单脚本到复杂企业级应用的各种场景。

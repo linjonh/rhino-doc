@@ -1,31 +1,30 @@
 ---
-title: Roadmap
+title: 路线图
 nav_order: 2
 ---
-# Roadmap
 
+# 路线图
 
----
-The following are some ideas of ways people can contribute to Rhino. If something below strikes your fancy, write to norrisboyd (at) gmail (dot) com.
+以下是一些关于如何为Rhino贡献的想法。如果下面的内容激发了你的兴趣，请写邮件至norrisboyd (at) gmail (dot) com。
 
-## Code Modernization
+## 代码现代化
 
-### Analyze regexp differences between Rhino and Java, replace if possible
+### 分析Rhino和Java正则表达式的差异，并在可能的情况下进行替换
 
-Rhino's regexp engine was developed before Java had support for regular expressions. It would be good to replace Rhino's implementation with Java's implementation which we hope will be faster and more correct.
+Rhino的正则表达式引擎是在Java支持正则表达式之前开发的。我们希望用更快、更正确的Java实现来替换Rhino的实现。
 
-First we need to look at the differences between the Java and ECMAScript regexp grammars. If they are identical, we can substitute easily. If they are different, we need to understand the differences and come up with a design for detecting and handling the ECMAScript-specific cases. Then we need to replace the Rhino implementation with calls to the Java implementation. See [Bug 390659](https://bugzilla.mozilla.org/show_bug.cgi?id=390659)
+首先，我们需要分析Java和ECMAScript正则表达式语法之间的差异。如果两者完全相同，我们可以轻松地进行替换。如果存在差异，我们需要理解这些差异，并设计一种方法来检测和处理特定于ECMAScript的案例。然后我们需要将Rhino的实现替换为调用Java的实现。参见[Bug 390659](https://bugzilla.mozilla.org/show_bug.cgi?id=390659)。
 
-## Performance
+## 性能
 
-### Analyze and improve benchmark performance
+### 分析并改进基准测试性能
 
-Analyze benchmarks and see how Rhino can improve performance.
+分析基准测试，看看Rhino可以如何提高性能。
 
-Probably the best starting point is the [V8 benchmarks](https://v8.googlecode.com/svn/data/benchmarks/v5/run.html).
+最好的起点可能是[V8基准测试](https://v8.googlecode.com/svn/data/benchmarks/v5/run.html)。
 
-## Features
+## 功能
 https://github.com/mozilla/rhino/issues?q=is%3Aopen+is%3Aissue+label%3Afeature+
 
-## Bugs and enhancements
+## 错误和增强
 https://github.com/mozilla/rhino/issues?q=is%3Aopen+is%3Aissue+label%3Abug

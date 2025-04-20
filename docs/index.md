@@ -1,18 +1,18 @@
 ---
-title: Home
+title: 首页
 nav_order: 1
 ---
-# Home
+# 首页
 
 ---
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Rhino_%28234581759%29.jpeg/512px-Rhino_%28234581759%29.jpeg)
 
-**Rhino** is an open-source implementation of [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) written entirely in Java. It is typically embedded into Java applications to provide scripting to end users. It is embedded in J2SE 6 as the default Java scripting engine.
+**犀牛（Rhino）** 是一个用Java编写的开源[JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)实现。它通常嵌入到Java应用程序中，以提供脚本功能给最终用户。在J2SE 6中，它被嵌入为默认的Java脚本引擎。
 
-## Rhino downloads
+## 犀牛下载
 
-How to [get source and binaries](./releases/index.md).
+如何[获取源码和二进制文件](./releases/index.md)。
 
-## Rhino help
+## 犀牛帮助
 
-[Some resources](community.md) if you get stuck.
+如果您遇到困难，可以参考[一些资源](community.md)。

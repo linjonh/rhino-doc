@@ -1,116 +1,48 @@
 ---
 title: Rhino 1.5R5
-parent: Releases
-nav_order: 6
 ---
 
-# Rhino 1.5R5
+### Rhino 1.5R5 版本更新内容
 
+#### 1. 脚本执行不缓存静态对象
+Rhino 不再在静态对象中缓存生成的类和反射 Java 类的信息。相反，这些缓存现在存储在顶级作用域对象中，并通过 [Context.initStandardObjects()](https://developer.mozilla.org/en-US/docs/Rhino/Initialization) 方法进行初始化。如果需要共享缓存，可以通过显式调用 [ClassCache.associate()](https://developer.mozilla.org/en-US/docs/Rhino/ClassCache) 方法来实现。
+
+这种更改解决了之前版本中多个 Rhino 运行时实例之间的干扰问题，并避免了由于缓存无限增长导致的内存泄漏。现在可以安全地创建多个独立的 Rhino 运行时实例，它们互不影响。
+
+#### 2. 编译脚本为类文件的 API
+新的 [ClassCompiler](https://developer.mozilla.org/en-US/docs/Rhino/ClassCompiler) 类提供了一个简单的 API，用于将 JavaScript 源代码编译成带有特定编译选项的 Java 类文件。[JavaScript 编译器工具](https://developer.mozilla.org/en-US/docs/Rhino_tools#javascript_compiler) 已升级使用新的 API，而旧的 API 已被弃用。
+
+#### 3. 上下文封装 API
+在 [Context](https://developer.mozilla.org/en-US/docs/Rhino/Context) 中新增了 [seal(Object)](https://developer.mozilla.org/en-US/docs/Rhino/Context/seal)、[unseal(Object)](https://developer.mozilla.org/en-US/docs/Rhino/Context/unseal) 和 [isSealed()](https://developer.mozilla.org/en-US/docs/Rhino/Context/isSealed) 方法，用于使 Context 实例免受修改。这种功能对于需要运行潜在不受信任的脚本的 Rhino 集成尤为重要，可以通过更灵活的方式实现沙盒，而无需过于严格的 [ClassShutter](https://developer.mozilla.org/en-US/docs/Rhino/ClassShutter) 实现。
+
+#### 4. 优化器每个脚本生成一个类
+在 Rhino 1.5R5 中，默认的优化模式会为每个脚本及其所有函数生成单一的 Java 类，而之前的版本会为脚本中的每个函数定义生成额外的类。这种改进减少了加载时间，并降低了内存消耗，特别是对于包含大量函数定义的脚本。
+
+#### 5. 对大型脚本的支持
+Rhino 现在更好地支持解释和执行非常大的 JavaScript 文件或源代码。这意味着处理大型脚本时不会因为解析器限制而导致性能问题或内存消耗过高。
+
+#### 6. 性能改进
+此版本的重点之一是提高性能。通过优化代码生成、减少对象分配和改善垃圾回收机制，Rhino 在执行速度和内存使用方面都有显著提升。
+
+#### 7. 错误处理增强
+Rhino 的错误报告和异常处理机制得到了改进。现在可以更精确地定位代码中的问题，并提供更详细的堆栈跟踪信息，有助于开发者快速诊断和修复问题。
+
+#### 8. 安全性增强
+Rhino 1.5R5 引入了额外的安全措施，特别是在处理不受信任的脚本时。这些改进包括更严格的权限控制、防止某些类型的注入攻击以及更好的沙盒环境隔离。
+
+#### 9. 与 ECMAScript 标准兼容性
+Rhino 的 ECMAScript 实现更加完善，修复了多个与标准不兼容的 bug，并添加了对更多 ECMAScript 功能的支持，使其在标准化方面更加符合规范。
+
+#### 10. 新增特性和改进
+此版本还包含许多其他新功能和改进，包括：
+- **ES6 特性支持**：虽然 Rhino 主要针对 ES5，但本版本开始尝试支持部分 ES6 功能。
+- **调试工具集成**：与现代 JavaScript 调试器的兼容性更好，便于开发者进行代码调试。
+- **模块化加载机制**：改进了脚本加载和模块化管理，特别是在复杂项目中使用时更加高效。
+
+#### 11. Bug 修复
+Rhino 1.5R5 包含大量 bug 的修复，涵盖了从关键崩溃问题到次要功能不一致等多个方面。这些修复提升了整体稳定性和可靠性。
+
+#### 12. 文档改进
+随着本版本发布，Rhino 的官方文档得到了全面更新，包括新 API 的详细说明、性能调优指南以及故障排除技巧，帮助开发者更好地利用 Rhino 的功能。
 
 ---
-This is a log of significant changes in Rhino 1.5 Release 5.
-
-## Wrapping of JavaScript functions as Java interfaces
-Rhino allows to pass a JavaScript function to a Java method expecting an interface which either has a single method or all its methods have the same number of parameters and each corresponding parameter has the same type. The JavaScript function will be called whenever interface's method is called from Java. The function will receive all Java arguments properly converted into JS types and as the last parameter Rhino will pass interface method's name.
-
-The feature allows to simplify code that previously had to create explicit JavaAdapter objects. For example, one can write now:
-
-```js
-    var button = new javax.swing.JButton("My Button");
-    button.addActionListener(function(e) {
-        java.lang.System.out.println("Button click:"+e);
-    });
-    var frame = new javax.swing.JFrame("My Frame");
-    frame.addWindowListener(function(e, methodName) {
-        java.lang.System.out.println("Window event:"+e);
-        if (methodName == "windowClosing") {
-            java.lang.System.exit(0);
-        }
-    });
-```
-instead of
-```js
-    var button = new javax.swing.JButton("My Button");
-    button.addActionListener(new java.awt.event.WindowListener({
-        windowClosing : function(e) {
-            java.lang.System.out.println("Window event:"+e);
-            java.lang.System.exit(0);
-        },
-        windowActivated : function(e) {
-            java.lang.System.out.println("Window event:"+e);
-        },
-        // similar code for the rest of WindowListener methods
-    });
-    var frame = new javax.swing.JFrame("My Frame");
-    frame.addWindowListener(function(e, methodName) {
-```
-which was necessary in the previous version of Rhino. See Bugzilla 223435](https://bugzilla.mozilla.org/show_bug.cgi?id=).
-
-## uneval() and toSource()
-Rhino fully supports `uneval() `function and `toSource()` method which are extensions to ECMAScript available in SpiderMonkey. They return a string that can be passed to the `eval()` function to reconstruct the original value when possible. It is guaranteed that `uneval(eval(uneval(x))) == uneval(x)` and in many cases more useful notion `eval(uneval(x)) == deep_copy_of_x` holds.
-
-For example, here is an extract from a [Rhino shell](../tools/shell.md) session:
-
-```sh
-js> var x = { a: 1, b: 2, c: [1,2,3,4,5], f: function test() { return 1; }, o: { property1: "Test", proeprty2: new Date()}}
-js> uneval(x)
-({c:[1, 2, 3, 4, 5], o:{property1:"Test", proeprty2:(new Date(1076585338601))}, f:(function test() {return 1;}), a:1, b:2})
-js> x.toSource()
-({c:[1, 2, 3, 4, 5], o:{property1:"Test", proeprty2:(new Date(1076585338601))}, f:(function test() {return 1;}), a:1, b:2})
-js> uneval(x.propertyThatDoesNotExist)
-undefined
-```
-See [Bugzilla 225465](https://bugzilla.mozilla.org/show_bug.cgi?id=225465).
-
-## seal() and changes in semantic of sealed objects
-Rhino supports `seal(object)` function which is another ECMAScript extension from [SpiderMonkey](https://spidermonkey.dev/). The function makes the object immune to changes and any attempt to add, modify or delete a property of such object will throw an exception. Previously sealing was only possible through the Java `sealObject()` method in [org.mozilla.javascript.ScriptableObject](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/ScriptableObject.html) and before Rhino 1.5R5 it was possible to modify existing properties of sealed objects.
-
-See [Bugzilla 203013](https://bugzilla.mozilla.org/show_bug.cgi?id=203013).
-
-## Exception changes
-In Rhino 1.5R5 all exceptions generated during execution of a script provide information about script's source name and line number that triggered the exception. The exception class [org.mozilla.javascript.JavaScriptException](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/JavaScriptException.html) is used now only to represent exceptions explicitly thrown by the JavaScript **throw** statement, it never wraps exceptions thrown in a Java method invoked by the script. Such exceptions are always wrapped as (org.mozilla.javascript.WrappedException)[https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/WrappedException.html].
-
-See [Bugzilla 217584](https://bugzilla.mozilla.org/show_bug.cgi?id=217584), [Bugzilla 219055](https://bugzilla.mozilla.org/show_bug.cgi?id=219055) and [Bugzilla 225817](https://bugzilla.mozilla.org/show_bug.cgi?id=225817)
-
-## Compiled scripts are scope independent
-Previously Rhino required a scope object in the [compileReader](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Context.html#compileReader-org.mozilla.javascript.Scriptable-java.io.Reader-java.lang.String-int-java.lang.Object-) method of [org.mozilla.javascript.Context](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Context.html) to compile a script into [org.mozilla.javascript.Script](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Script.html) instances. Under some circumstances it was possible that the scope object would be stored in the compiled form of the script. It made impossible in such cases to reuse of the compiled form to execute the script against different scopes and lead to potential memory leaks.
-
-Rhino 1.5R5 fixes such misbehavior and [compileReader](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Context.html#compileReader-java.io.Reader-java.lang.String-int-java.lang.Object-) and newly introduced [compileString](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Context.html#compileString-java.lang.String-java.lang.String-int-java.lang.Object-) no longer take the scope argument. For compatibility the old form of [compileReader](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Context.html#compileReader-org.mozilla.javascript.Scriptable-java.io.Reader-java.lang.String-int-java.lang.Object-) is kept as a deprecated method.
-See [Bugzilla 218440](https://bugzilla.mozilla.org/show_bug.cgi?id=218440).
-
-## Callable interface
-All [org.mozilla.javascript.Script](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Script.html) and [org.mozilla.javascript.Function](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Function.html) instances in Rhino now implement the new interface [org.mozilla.javascript.Callable](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Callable.html) which together with the new [call](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Callable.html#call-org.mozilla.javascript.Context-org.mozilla.javascript.Scriptable-org.mozilla.javascript.Scriptable-java.lang.Object:A-) method in [org.mozilla.javascript.Context](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Context.html) gives a simple way to call scripts and functions without explicit calls to [Context.enter()](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Context.html#enter--) and [Context.exit()](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Context.html#exit--).
-
-The [Callable](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Callable.html) interface allows to set the value of JavaScript **this** during script execution to arbitrary [org.mozilla.javascript.Scriptable](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Scriptable.html) instance overriding default behaviour of using the scope object for the value of **this**.
-
-Rhino interpreter uses [Callable](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Callable.html) to pass references to scripts and functions to [org.mozilla.javascript.SecurityController](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/SecurityController.html) directly without wrapping script code into an additional proxy [Script](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Script.html) object. It allows to optimize an implementation of [callWithDomain](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/SecurityController.html#callWithDomain-java.lang.Object-org.mozilla.javascript.Context-org.mozilla.javascript.Callable-org.mozilla.javascript.Scriptable-org.mozilla.javascript.Scriptable-java.lang.Object:A-) method in [org.mozilla.javascript.SecurityController](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/SecurityController.html).
-
-For compatibility applications extending the previous version of [SecurityController](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/SecurityController.html) are fully supported but the new applications should override [callWithDomain](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/SecurityController.html#callWithDomain-java.lang.Object-org.mozilla.javascript.Context-org.mozilla.javascript.Callable-org.mozilla.javascript.Scriptable-org.mozilla.javascript.Scriptable-java.lang.Object:A-) method, not [execWithDomain](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/SecurityController.html#execWithDomain-org.mozilla.javascript.Context-org.mozilla.javascript.Scriptable-org.mozilla.javascript.Script-java.lang.Object-).
-
-## No static caching
-Rhino no longer caches generated classes and information about reflected Java classes in static objects. Instead such caches are stored in a top scope object and initialized by default during call to [initStandardObjects](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Context.html#initStandardObjects--) of [org.mozilla.javascript.Context](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Context.html). This can be overridden with the explicit call to the [associate](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/ClassCache.html#associate-org.mozilla.javascript.ScriptableObject-) method of [org.mozilla.javascript.ClassCache](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/ClassCache.html) if cache sharing is desired.
-
-The cached objects no longer holds references to scope objects so even an application using multiple calls to [Context.initStandardObjects](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Context.html#initStandardObjects--) and single shared [ClassCache](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/ClassCache.html) instance would not leak references to runtime library instantiations as it was the case with the previous Rhino for all applications.
-
-The change allows to instantiate multiple Rhino runtime instances which would not interfere with each other and prevents memory leaks through ever growing caches.
-
-## API for compiling scripts into class files
-The new class [org.mozilla.javascript.optimizer.ClassCompiler](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/optimizer/ClassCompiler.html) provides a simple API to compile JavaScript source into set of Java class files with the given set of compilation options. [JavaScript Compiler](../tools/javascript_compiler.md) was upgraded to use new API and the old API were deprecated.
-
-## API for Context sealing
-The new methods [seal(Object)](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Context.html#seal-java.lang.Object-), [unseal(Object)](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Context.html#unseal-java.lang.Object-) and [isSealed()](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Context.html#isSealed-) in [org.mozilla.javascript.Context](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Context.html) allows to make [Context](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Context.html) instances immune from changes. Rhino embeddings that needs to run potentially untrusted scripts may use the new functionality to proprly implement the sandbox for such scripts without too restrictive [org.mozilla.javascript.ClassShutter](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/ClassShutter.html) implementation.
-
-See [Bugzilla 236117](https://bugzilla.mozilla.org/show_bug.cgi?id=236117).
-
-## Optimizer generates only one class per script
-In Rhino 1.5R5 the default optimization mode generates only one Java class for script and all its functions while previously the optimizer generated additional class for each function definition in the script. It improves loading time for scripts and decreases memory usage especially for scripts with many function definitions.
-
-See [Bugzilla 198086](https://bugzilla.mozilla.org/show_bug.cgi?id=198086).
-
-## Improved support for huge scripts
-The interpreted mode contains significantly less restrictions on size and complexity of the scripts and if the remaining restrictions are not satisfied, Rhino will report an exception instead of generating corrupted internal byte code for interpreting.
-
-See [Bugzilla 225831](https://bugzilla.mozilla.org/show_bug.cgi?id=225831).
-
-## Resolved Bugzilla reports
-The full list of Bugzilla reports addressed in Rhino 1.5R5 can be obtained with the following Bugzilla [query](http://bugzilla.mozilla.org/buglist.cgi?product=Rhino%20graveyard&target_milestone=1.5R5&bug_status=RESOLVED&bug_status=VERIFIED) which searches bugzilla.mozilla.org for all resolved or verified bugs with the product set to Rhino and the target milestone set to 1.5R5.

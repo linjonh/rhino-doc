@@ -1,67 +1,65 @@
 ---
-title: "JavaScript compiler"
+title: "JavaScript 编译器"
 ---
 
-# JavaScript compiler
+# JavaScript 编译器
 
 
 ---
 
-## Overview
+## 概述
 
-The JavaScript compiler translates JavaScript source into Java class files. The resulting Java class files can then be loaded and executed at another time, providing a convenient method for transferring JavaScript, and for avoiding translation cost.
+JavaScript 编译器将 JavaScript 源代码转换为 Java 类文件。生成的 Java 类文件可以稍后加载和执行，从而提供了一种便捷的方法来传输 JavaScript，并避免了翻译成本。
 
-Note that the top-level functions available to the shell (such as print) are not available to compiled scripts when they are run outside the shell.
+请注意，顶级函数（如 print）在脚本外部运行时不会对编译后的脚本生效。
 
-## Compiler command line
+## 编译器命令行
 
 `java org.mozilla.javascript.tools.jsc.Main` [_options_] `file1.js [file2.js...]`
 
-where _options_ are:
+其中 _options_ 包括：
 
 `-extends` _java-class-name_
 
-Specifies that a java class extending the Java class _java-class-name_ should be generated from the incoming JavaScript source file. Each global function in the source file is made a method of the generated class, overriding any methods in the base class by the same name.
+指定生成的 Java 类应扩展 Java 类 _java-class-name_。每个源文件中的全局函数将成为生成类的方法，如果基类中有相同名称的方法，则会被覆盖。
 
 `-implements` _java-intf-name_
 
-Specifies that a java class implementing the Java interface _java-intf-name_ should be generated from the incoming JavaScript source file. Each global function in the source file is made a method of the generated class, implementing any methods in the interface by the same name.
+指定生成的 Java 类应实现 Java 接口 _java-intf-name_。每个源文件中的全局函数将成为生成类的方法，如果接口中有相同名称的方法，则会被实现。
 
-`-debug
+`-debug` 或 `-g`
 
- -g`
-
-Specifies that debug information should be generated. May not be combined with optimization at an optLevel greater than zero.
+指定生成调试信息。不可以与大于零的 optLevel 优化一起使用。
 
 `-main-method-class` _className_
 
-Specify the class name used for main method implementation. The class must have a method matching `public static void main(Script sc, String[] args)`.
+指定用于 main 方法实现的类名。该类必须包含匹配 `public static void main(Script sc, String[] args)` 的方法。
 
 `-nosource`
 
-Does not save the source in the class file. Functions and scripts compiled this way cannot be decompiled. This option can be used to avoid distributing source or simply to save space in the resulting class file.
+不保存源代码到类文件中。此方式编译的函数和脚本无法反编译。可以使用此选项以避免分发源代码或节省生成的类文件空间。
 
 `-o` _outputFile_
 
-Writes the class file to _outputFile_, which should end in .class and must be a writable filename.
+将类文件写入 _outputFile_，其扩展名应为 .class，并且必须是一个可写的文件名。
 
 `-d` _outputDirectory_
 
-Writes the class file to _outputDirectory_.
+将类文件写入 _outputDirectory_。
 
 `-opt` _optLevel_
 
-Optimizes at level _optLevel_, which must be an integer between -1 and 9. See [Optimization](./docs/optimization.md) for more details. If _optLevel_ is greater than zero, `-debug` may not be specified.
+在级别 _optLevel_ 进行优化，其值必须是 -1 到 9 之间的整数。详细信息请参阅 [优化](./docs/optimization.md)。如果 _optLevel_ 大于零，则不能指定 `-debug`。
 
 `-package` _packageName_
 
-Specifies the package to generate the class into. The string _packageName_ must be composed of valid identifier characters optionally separated by periods.
+指定生成类所在的包。字符串 _packageName_ 必须由有效的标识符字符组成，可能用点分隔。
 
 `-version` _versionNumber_
 
-Specifies the language version to compile with. The string _versionNumber_ must be one of 100, 110, 120, 130, 140, 150, 160, or 170. See [JavaScript Language Versions](./docs/overview.md#javascript_language_versions) for more information on language versions.
+指定编译时使用的语言版本。字符串 _versionNumber_ 必须是 100、110、120、130、140、150、160 或 170 之一。有关语言版本的详细信息，请参阅 [JavaScript 语言版本](./docs/overview.md#javascript_language_versions)。
 
-## Examples
+## 示例
 
 ```sh
 $ cat test.js

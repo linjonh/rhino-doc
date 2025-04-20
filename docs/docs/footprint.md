@@ -1,70 +1,42 @@
 ---
-title: "Small Footprint"
+title: "资源占用小"
 ---
-# Small Footprint
 
+# 资源占用小
 
----
-A few changes can be made to reduce the footprint of Rhino for
-embeddings where space is at a premium. On a recent build, the
-length of js.jar was 603,127 bytes corresponding to 1,171,708
-bytes of all uncompressed Rhino classes with debug information
-included. With various changes js.jar size can be reduced to
-204,689 bytes corresponding to 424,774 bytes of uncompressed
-classes.
+通过一些修改，可以缩减Rhino在嵌入式环境中占用的空间，尤其是在存储资源有限的场景下。近期的一个构建中，`js.jar`的大小为603,127字节，对应于包含调试信息的所有未压缩Rhino类文件，总计1,171,708字节。通过各种更改，`js.jar`的大小可以减少到204,689字节，对应于424,774字节的未压缩类文件。
 
-## Tools
+## 工具
 
-Most embeddings won't need any of the classes in
-`org.mozilla.javascript.tools` or any of its sub-packages.
+大多数嵌入式环境不需要`org.mozilla.javascript.tools`包或其子包中的任何类。
 
-## Optimizer
+## 优化器
 
-It is possible to run Rhino with interpreter mode only, allowing
-you to remove code for classfile generation that include all
-the classes from `org.mozilla.javascript.optimizer` package.
+Rhino可以仅运行解释器模式，这样就可以删除包括所有来自`org.mozilla.javascript.optimizer`包的类文件生成代码。
 
 ## JavaAdapter
 
-Implementing the JavaAdapter functionality requires the ability to
-generate classes on the fly. Removing
-`org.mozilla.javascript.JavaAdapter` will disable this
-functionality, but Rhino will otherwise run correctly.
+实现JavaAdapter功能需要能够动态生成类。移除`org.mozilla.javascript.JavaAdapter`将禁用此功能，但Rhino仍然可以正常运行。
 
-## Class generation library
+## 类文件生成库
 
-If you do not include Optimizer or JavaAdapter, nor do you use
-PolicySecurityController then you do not need Rhino library for class
-file generation and you can remove all the classes from in
-`org.mozilla.classfile` package.
+如果不包含优化器或JavaAdapter，也不使用PolicySecurityController，则不需要Rhino的类文件生成库，可以从`org.mozilla.classfile`包中移除所有类。
 
-## Regular Expressions
+## 正则表达式
 
-The package `org.mozilla.javascript.regexp` can be
-removed. Rhino will continue to run, although it will not be able to
-execute any regular expression matches. This change saves 47,984
-bytes of class files.
+`org.mozilla.javascript.regexp`包可以被移除。Rhino仍然可以运行，但将无法执行任何正则表达式匹配。此更改节省了47,984字节的类文件。
 
-## Debug information
+## 调试信息
 
-Debug information in Rhino classes consumes about 25% of code
-size and if you can live without that, you can recompile Rhino to
-remove it.
+Rhino类中的调试信息占代码大小的约25%，如果不需要调试信息，可以重新编译Rhino以移除它。
 
 ## smalljs.jar
 
-Ant build script in Rhino supports smalljar target that will generate
-smalljs.jar that does not include Tools, Optimizer, JavaAdapter and
-Class generation library, Regular Expressions, E4X implementataion and
-deprecated files. To build such minimalist jar without debug information,
-run the following command from the top directory of Rhino distribution:
+Rhino的Ant构建脚本支持`smalljar`目标，生成的`smalljs.jar`不包括工具、优化器、JavaAdapter和类文件生成库、正则表达式、E4X实现以及过时的文件。要在调试信息的情况下构建一个最小的jar包，请从Rhino发行版的顶级目录运行以下命令：
 
 ```sh
 ant clean
 ant -Ddebug=off -Dno-regexp=true -Dno-e4x=true smalljar
 ```
 
-If you omit `-Dno-regexp=true`, then the resulting
-smalljs.jar will include Regular Expression support. Similarly
-omitting `-Dno-e4x=true` results in smalljs.jar
-that includes runtime support for E4X.
+如果省略`-Dno-regexp=true`，生成的`smalljs.jar`将包含正则表达式支持。同样，省略`-Dno-e4x=true`将导致`smalljs.jar`包含E4X的运行时支持。

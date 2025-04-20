@@ -1,46 +1,45 @@
 ---
 title: Rhino 1.7.9
-parent: Releases
+parent: 发布版本
 nav_order: 22
 ---
 
 # Rhino 1.7.9
 
-
 ---
-This release fixes a [potential ArrayIndexOutOfBoundsException](https://github.com/mozilla/rhino/issues/390) that was introduced in 1.7.8. Since it's potentially pretty serious, projects currently using 1.7.8 should switch to this new release.
 
+此版本修复了一个在1.7.8中引入的潜在[ArrayIndexOutOfBoundsException](https://github.com/mozilla/rhino/issues/390)问题。由于这个问题可能非常严重，目前使用1.7.8的项目应该切换到此新版本。
 
-In addition:
+除此之外：
 
 ## [#398](https://github.com/mozilla/rhino/pull/398)
-There is a new flag on Context called "FEATURE_INTEGER_WITHOUT_DECIMAL_PLACE." If set, Rhino will work harder to display numbers in integer form rather than in floating-point form. This feature is currently disabled by default, although if it proves popular than we can consider enabling it in the future.
+Context上有一个新的标志叫做"FEATURE_INTEGER_WITHOUT_DECIMAL_PLACE"。如果设置了这个标志，Rhino将更努力地以整数形式而不是浮点形式显示数字。此功能目前默认处于禁用状态，但如果其受欢迎程度较高，我们可以考虑在未来启用它。
 
 ## [#383](https://github.com/mozilla/rhino/pull/383)
-At language level "ES6" and above, ToNumber conversion is now more compliant to the spec. (This change is disabled for older language levels to prevent a problem with backward compatibility.)
+在"ES6"及以上语言级别下，ToNumber转换现在更符合规范。（此变更对旧的语言级别禁用，以防止向后兼容性问题。）
 
-## Finally, there are a number of other fixes.
+## 最后，还有一些其他修复。
 
-Thanks to all who contributed, both with issues and with code!
+感谢所有贡献者，无论是通过问题还是代码！
 
 Attila Szegedi:
-- Fix a JavaDoc warning
+- 修复了一个JavaDoc警告
 
 Ivan Vyshnevskyi:
-- Make ToNumber(String) conversion more spec-compliant
-- Report parsing error for default values in destructuring assignments
+- 使ToNumber(String)转换更符合规范
+- 报告解构赋值中默认值的解析错误
 
 Michael[tm] Smith:
-- Add addError(String messageId, int c) method
-- Add “illegal character” test to ParserTest
-- Show word in “identifier is a reserved word” error
-- Add “identifier is a reserved word” test
+- 添加addError(String messageId, int c)方法
+- 在ParserTest中添加“非法字符”测试
+- 在“标识符是保留字”错误中显示单词
+- 添加“标识符是保留字”测试
 
 Oleksandr Maksymenko:
-- changes to process integer object as integer and long as long, not as double
+- 更改为将整数对象处理为整数和长整型，而不是双精度型
 
 RBRi:
-- cleanup the code an try to make it faster [#373](https://github.com/mozilla/rhino/issues/373)
+- 清理代码并尝试使其更快 [#373](https://github.com/mozilla/rhino/issues/373)
 
 jhertel:
-- Correction: Compatability → Compatibility
+- 更正：Compatability → Compatibility

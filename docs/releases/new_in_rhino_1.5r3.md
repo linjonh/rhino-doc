@@ -4,26 +4,27 @@ parent: Releases
 nav_order: 3
 ---
 
-# Rhino 1.5R3
-
+# 犀牛 1.5R3
 
 ---
-This is a log of significant changes since the release of Rhino 1.5 Release 2.
+这是自 Rhino 1.5 第2版发布以来显著更改的日志。
 
-## Serialization
-See the [serialization documentation](../docs/serialization.md).
+## 序列化
+请参阅[序列化文档](../docs/serialization.md)。
 
-## Class writer API changes
-Courtesy of Kemal Bayram.
+## 类编写器 API 更改
+由Kemal Bayram提供。
 
-> The biggest change I've made is the replacement of ClassOutput with ClassRepository that has the single method:
+> 我做出的最大的更改是用具有单一方法的ClassRepository替换了ClassOutput：
 > ```java
 >     public boolean storeClass(String className, byte[] classBytes, boolean isTopLevel) throws IOException;
 > ```
-> This interface allows any arbitary storage method, such as a Hashtable/Map. In addition it also allows you to specify whether a class should be loaded, via returning true or false.  You can still use ClassOutput as I've coded an internal wrapper.
-> 
-> With this interface it has also been possible to strip out the file saving code from Codegen and OptClassNameHelper.  The file saving code is now an inner class FileClassRepository in Context. As a consequence of this  I've stripped out some methods from ClassNameHelper. The resulting code is much more cleaner then before hand and everything still works as per usual.
-> 
-> Other small additions are:
-> - Annonymous functions are now named class$1 instead of class1
-> - get/setClassName added to ClassNameHelper exposed in Context.
+> 该接口允许任何任意存储方法，例如Hashtable/Map。此外，它还允许你指定类是否应加载，通过返回true或false来实现。你仍然可以使用ClassOutput，因为我编写了一个内部包装器。
+
+> 由于这个接口，我已经能够从Codegen和OptClassNameHelper中剥离出文件保存代码。文件保存代码现在是Context中名为FileClassRepository的内类。因此，我从ClassNameHelper中剥离了一些方法。结果代码比以前清晰得多，但一切仍按通常方式工作。
+
+> 其他一些小的补充：
+> - 匿名函数现在命名为class$1而不是class1
+> - 添加了get/setClassName到ClassNameHelper，并在上下文中公开
+
+>

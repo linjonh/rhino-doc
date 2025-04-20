@@ -6,22 +6,20 @@ nav_order: 20.2
 
 # Rhino 1.7.7.2
 
+本版本包含了几个重要错误的修复，这些错误在现实应用中曾让Rhino用户遇到困扰。
 
----
-This release contains fixes for a few important bugs that have caught Rhino users out in the field.
+- 不管用户提供的比较函数有多么奇怪，都不要从array.prototype.sort()抛出Java异常。这是JavaScript和Java之间的一个主要区别，导致我们避免使用"Arrays.sort"对JavaScript数组进行排序。
+- 修复了"DataView"类中的不正确偏移量。
 
-- Do not throw a Java exception from array.prototype.sort() no matter how weird the user-supplied comparator function is. This is a major difference between JavaScript and Java and has caused us to avoid using "Arrays.sort" on JavaScript arrays.
-- Fix incorrect offsets in the "DataView" class.
+此外，还包含了其他几个修复：
 
-It also includes several other fixes:
+- 始终在V8风格的堆栈跟踪中添加列号。（遗憾的是，目前始终是“0”。）
+- 支持Object.is和Object.assign。
+- 使Symbol实现与规范相匹配（仅适用于VERSION_ES6及更高版本）。
+- 避免在"toJSON"中抛出某些本机对象的内部Java异常。
+- 允许对ContinuationPending进行子类化。
+- 对于VERSION_ES6及更高版本，按照规范定义的顺序排序属性（首先是整数属性名）。
+- 修复字符串连接中的堆栈溢出问题。
+- 提升ConsString.toString的性能。
 
-- Always append a column number to V8-style stack traces. (Unfortunately it is always "0".)
-- Support Object.is and Object.assign.
-- Make the Symbol implementation match the spec (for VERSION_ES6 and up only).
-- Avoid throwing internal Java exceptions for certain native objects in "toJSON".
-- Allow subclassing of ContinuationPending.
-- For VERSION_ES6 and up, sort properties in the spec-defined order (int property names first).
-- Fix stack overflow in string concatenation.
-- Improve performance of ConsString.toString
-
-The next release is likely to be 1.7.8.
+下一个版本可能是1.7.8。

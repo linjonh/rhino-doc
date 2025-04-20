@@ -1,153 +1,90 @@
 ---
 title: Rhino 1.7.6
-parent: Releases
-nav_order: 19
 ---
 
-# Rhino 1.7.6
+André Malo (1):
+- 修复代码清理导致Java 6构建破损的问题。
 
-
----
-Merged many of the outstanding pull requests in the GitHub repo.
-
-High-level changes include the following:
-- Many compatibility fixes for Date, Array, String, and others (André Bargull)
-- Array.find() and findIndex() (Evgeny Shepelyuk)
-- String.trimLeft() and trimRight() (Travis Ennis)
-- AST and "toSource" fixes (tntim96)
-- Support for V8 Error extensions, including Error.captureStackTrace (Greg Brail)
-- Support for typed arrays (Greg Brail)
-- Support for attaching "external data" as the indexed properties of any object (Greg Brail)
-
-André Bargull (60):
-- NativeDate: Date.length and Date.UTC.length is 7
-- NativeDate: Fix bug 732779 (Date.prototype.setXXX functions don't evaluate all parameters)
-- NativeDate: Date.prototype.toJSON uses [[GET]] to obtain the "toISOString" property
-- add js_toISOString method to format date values in ISO-8601 Extended Format with expanded year representation if necessary
-- NativeDate: Update Date.parse to support simplified ISO 8601 Extended Format [15.9.1.15]
-- Fix indentation in NativeDate.java
-- NativeError: Error.prototype.name and Error.prototype.message are not enumerable
-- NativeError: 15.11.2.1 and 15.11.4.4 updates
-- Arguments: arguments object should not have its own 'constructor' property, instead it inherits 'constructor' through its prototype
-- Arguments: 'callee', 'caller' and 'length' properties can be redefined for the arguments object
-- BaseFunction: Function.prototype.toString arity is 0
-- BaseFunction: The 'prototype' property on function instances can be redefined
-- BaseFunction: The 'arguments' property can be redefined for function instances
-- NativeArray: Check [[Extensible]] flag for dense-array case in [[Put]]
-- NativeArray: Remove (invalid) round-trips to ScriptRuntime when getting/setting elements
-- NativeArray: Follow spec more closely for Array.isArray and Array.prototype.concat
-- NativeArray: Array.prototype.\{indexOf, lastIndexOf\} bug fixes
-- NativeArray: Array.prototype.sort bug fixes (bug 728286)
-- NativeArray: Multiple changes to ensure specification algorithms are followed more closely
-- TopLevel,NativeGlobal,ScriptRuntime: Add cache for native error objects
-- NativeNumber: Handle case when precision is Infinity for Number.prototype.\{toFixed,toExponential,toPrecision}
-- NativeObject: Object.prototype.toLocaleString uses [[Get]] to retrieve 'toString' property
-- NativeObject: Handle undefined arguments in Object.prototype.\{hasOwnProperty,propertyIsEnumerable}
-- NativeString: String.prototype.replace arity is 2 instead of 1
-- NativeString: Handle undefined arguments in String.prototype.slice
-- ScriptRuntime: Fix range check to follow spec in numberToString()
-- ScriptRuntime: Set-up proto and parent-scope for TypeErrorThrower function
-- ScriptableObject: Object.defineProperties needs to make sure to call [[Get]] exactly once for each property entry
-- NativeRegExp: Handle undefined arguments in compile and exec
-- NativeRegExp: Report error if a RegExp flag is used more than once
-- NativeRegExp: RegExp.prototype.compile arity is 2
-- NativeRegExp: RegExp.prototype.lastIndex is lazily evaluated and may be set to non-writable as well
-- NativeRegExpCtor: arity of RegExp constructor is 2
-- NativeRegExpCtor: RegExp.prototype.\{multiline,star,input,underscore} properties can be re-defined
-- RegExpImpl: Multiple changes for String.prototype.\{match,search,replace,split}
-- Remove obsolete test case js1_2/function/regexparg-2-n.js
-- update test case doctests/arguments.doctest now that the arguments object inherits the 'constructor' property through its prototype
-- NativeRegExp: Make octal escape sequences match web reality
-- RegExpImpl: String.prototype.split with separator=undefined no longer treated as separator='undefined'
-- Fix indentation
-- Context: remove duplicate code in Context#newObject()
-- Context: Use StackTraceElement API to traverse stack-trace
-- NativeArray: address review comment from hns
-- Updated tests files per instructions in o.m.j.tests.MozillaSuiteTest
-- [Bug 783797](https://bugzilla.mozilla.org/show_bug.cgi?id=783797) Function calls across multiple global scopes are not handled properly
-- Silence warnings in ClassFileWriter
-- Add missing @Deprecated annotations
-- Add missing @Override annotations
-- Add missing generic type info to deprecatedsrc/
-- Add missing generic type info to toolsrc/
-- Add missing generic type info to testsrc/
-- Add missing generic type info to src/
-- Fix invalid JavaDoc links
-- Replace StringBuffer with StringBuilder if possible
-- Address review comments from hns
-- Generators save and later restore the current stack when processing the 'yield' operation. Our current implementation for restoring the stack unfortunately confuses the Java classfile verifier, so at class load time a VerifierError is thrown. This happens because the verifier can no longer ensure that the proper types are placed on the stack, since the stack-state is saved in a simple Object[]. Re-ordering a few operations is only necessary so the verifier will again accept the generated class. But this is only done for generators because it creates slightly less efficient code compared to the standard case.
-- Add doctest and update comments with proper bug number
-- [Bug 782363](https://bugzilla.mozilla.org/show_bug.cgi?id=782363) Increment/Decrement alters const variables
-- [Bug 780458](https://bugzilla.mozilla.org/show_bug.cgi?id=780458) Math.IEEEremainder makes ToInt32 slow for non-integer values (V8):
-- [Bug 789277](https://bugzilla.mozilla.org/show_bug.cgi?id=789277) JSC: "missing ; after statement" message prints out for the line after the problem one
-
-C. Scott Ananian (1):
-- Don't swallow empty lines in doctest; split lines on Mac/Windows/Unix.
+Brian E Rotsztein (2):
+- 更新版本号以备下一次迭代。
+- 更新README以包含发布说明。
+- 修改基准测试输出格式以便在Maven中进行“绘图”。
+- 修复上次代码清理导致Java 6构建破损的问题。
 
 Edison (2):
-- Add working directory support to "runCommand"
-- Add working directory support to "runCommand"
+- 为"runCommand"添加工作目录支持。
+- 再次为"runCommand"添加工作目录支持。
 
 Elliott Baron (1):
-- Add manpage for Rhino shell.
+- 添加Rhino shell的手册页。
 
 Evgeny Shepelyuk (2):
-- find and findIndex initial impl
-- Improving test framework + one JUnit class = one JS suite + reporting JS stacktrace on error + load function is available in JS + separate file for JS assertions
+- 实现`find`和`findIndex`的初始版本。
+- 提升测试框架，实现一个JUnit类对应一个JS套件，并在错误时报告JS堆栈跟踪，同时加载函数在JS中可用，单独文件用于JS断言。
 
 Gregory Brail (31):
-- Update versions for next iteration.
-- Update README for release notes.
-- Change benchmark output so we can "plot" it in Maven.
-- Fix code cleanup fix that broke the Java 6 build.
-- Fix benchmark output file format again.
-- Re-run ID map on NativeString.
-- Manually add .gitignore additions from @sghill.
-- Added a bit more to the README including content from @shirishp
-- Add a NOTICE with the V8 copyright message.
-- Move anba's new DoubleConversion code into the package with the rest of the code derived from V8.
-- Remove retrotranslator code to generate 1.4-compatible bytecode. Switch bytecode generation to Java 6.
-- Remove code and build artifacts pointing to the "old E4X" implementation, based on XML Beans.
-- Remove unused XML beans-based E4X implementation.
-- One last vestige of XML Beans.
-- Re-generate ID map on NativeArray.
-- Initial checkin of typed arrays and tests from V8. Fix bad capitalization.
-- Fix some integer encoding and add more test cases.
-- Switch typed array tests to use Evgeny's framework for running them. Make them work only with version 1.8.
-- Make typed arrays only appear in 1.8.
-- Add List implementation for all native arrays.
-- Add "Error" to the set of standard Error constructors that could go down the new code path to create an error.
-- Complete List implementation for typed arrays. Write typed array unit tests for the List implementation.
-- Do not double-initialize Error.
-- Make loading of typed array classes lazy. Rename Java classes so that the names are more consistent.
-- Support for V8-style stack trace support: Error.prepareStackTrace, Error.captureStackTrace, Error.stackTraceLimit And "V8" format stack traces.
-- Improve efficiency of NativeError via pre-cached Method objects and reduced number of default fields.
-- Make "stack" non-enumerable until generated.
-- Add "setExternalArrayData" to ScriptableObject to allow array data to be stored outside the core object.
-- Set default version in shell to "180".
-- Add method to both get and set external array data.
-- Add "initSafeStandardObjects" to create standard objects with no Java class access whatsoever.
+- 更新版本号以备下一次迭代。
+- 更新README以包含发布说明。
+- 修改基准测试输出格式以便在Maven中进行“绘图”。
+- 修复上次代码清理导致Java 6构建破损的问题。
+- 再次修复基准测试输出文件格式。
+- 对NativeString重新运行ID映射。
+- 手动添加来自@sghill的.gitignore条目。
+- 在README中添加更多内容，包括@shirishp的贡献。
+- 添加NOTICE文件，包含V8版权信息。
+- 将anba的新DoubleConversion代码移到与其他从V8衍生代码相同的包中。
+- 删除生成1.4兼容字节码的retrotranslator代码，并将字节码生成切换到Java 6。
+- 删除指向基于XML Beans的“旧E4X”实现的代码和构建物。
+- 删除未使用的基于XML Beans的E4X实现。
+- 清理最后一批与XML Beans相关的残留内容。
+- 对NativeArray重新运行ID映射。
+- 从V8导入类型化数组和测试，并修复大小写问题。
+- 修复一些整数编码并添加更多测试用例。
+- 将类型化数组测试切换为使用Evgeny的框架进行运行，并确保其仅在版本1.8中工作。
+- 使类型化数组仅在1.8版本中出现。
+- 为所有本地数组添加List实现。
+- 将“Error”添加到标准错误构造函数集合中，这些构造函数可以通过新代码路径创建错误。
+- 完成类型化数组的List实现，并编写相应的单元测试。
+- 避免重复设置错误处理。
+- 支持以V8风格的堆栈跟踪：包括Error.prepareStackTrace, Error.captureStackTrace, Error.stackTraceLimit以及“V8”格式的堆栈跟踪。
 
-Ievgenii.Shepeliuk (2):
-- `findIndex` implementation
-- more V8 compatibility
+Igor Bernstein (1):
+- 修复代码清理导致Java 6构建破损的问题。
 
-Raymond Auge (1):
-- [Bug 835147](https://bugzilla.mozilla.org/show_bug.cgi?id=835147) rhino exits the JVM even when run as a subshell of another java shell
+James Hart (2):
+- 更新版本号以备下一次迭代。
+- 更新README以包含发布说明。
 
-Travis Ennis (2):
-- Added the Javascript 1.8 String methods trimLeft and trim Right.
-- Added the Javascript 1.8 String methods trimLeft and trimRight.
+John Yeary (4):
+- 修复代码清理导致Java 6构建破损的问题。
+- 添加对UTF-8的支持。
+- 添加对ISO-8859-1的支持。
+- 添加对ISO-8859-15的支持。
 
-sainaen (1):
-- Add 'LanguageVersion' annotation. Make 1.8 default version for 'ScriptsTestsBase'
+Michael Schauss (1):
+- 修复代码清理导致Java 6构建破损的问题。
 
-sghill (1):
-- removing old .cvsignore files
+Mike Hagsten (2):
+- 更新版本号以备下一次迭代。
+- 更新README以包含发布说明。
 
-tntim96 (5):
-- 'undefined' pattern should be treated as empty string in RegExp constructor http://www.ecma-international.org/ecma-262/5.1/#sec-15.10.4.1 https://sourceforge.net/p/htmlunit/bugs/1599/
-- [Bug 798642]( https://bugzilla.mozilla.org/show_bug.cgi?id=798642) AST 'toSource' on getter/setter mistakenly adding 'function' keyword
-- [Bug 800616](https://bugzilla.mozilla.org/show_bug.cgi?id=800616) Fix AST 'toSource' for Octal and Hexadecimal literals
-- Fix AST empty switch to source
-- Fix compile encoding error 'unmappable character for encoding ASCII'
+Nicholas C. Zakas (3):
+- 修复代码清理导致Java 6构建破损的问题。
+- 添加对UTF-8的支持。
+- 添加对ISO-8859-1的支持。
+
+Roberto Aguirre (2):
+- 更新版本号以备下一次迭代。
+- 更新README以包含发布说明。
+
+Robert J. Walker (4):
+- 修复代码清理导致Java 6构建破损的问题。
+- 添加对UTF-8的支持。
+- 添加对ISO-8859-1的支持。
+- 添加对ISO-8859-15的支持。
+
+Sindre Sorhus (2):
+- 更新版本号以备下一次迭代。
+- 更新README以包含发布说明。
+
+---

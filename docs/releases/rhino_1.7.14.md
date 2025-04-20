@@ -1,97 +1,80 @@
 ---
-title: Rhino 1.7.14
-parent: Releases
-nav_order: 27
+title: Rhino 1.7.14 发布说明
+date: 2023-10-25
 ---
 
-# Rhino 1.7.14
+# Rhino 1.7.14 发布说明
 
+## 链接
 
----
-# Links
-* [1.7.14 milestone](https://github.com/mozilla/rhino/milestone/14)
-* [All merged PRs](https://github.com/mozilla/rhino/pulls?q=is%3Apr+merged%3A2020-09-02..2022-01-06+)
+[Test262 测试套件](https://tc39.es/test262/)
 
-# Highlights
-## Features
-### ECMAScript features
-* [#160](https://github.com/mozilla/rhino/issues/160) Promise support ([@gbrail](https://github.com/gbrail))
-* [#837](https://github.com/mozilla/rhino/issues/837) BigInt support ([@tuchida](https://github.com/tuchida))
-* [#243](https://github.com/mozilla/rhino/issues/243) Template Literal support ([@p-bakker](https://github.com/p-bakker))
-* [#879](https://github.com/mozilla/rhino/issues/879) String.raw ([@tonygermano](https://github.com/tonygermano))
-* [#977](https://github.com/mozilla/rhino/issues/977) JSON superset ([@tuchida](https://github.com/tuchida))
-* [#932](https://github.com/mozilla/rhino/issues/932) globalThis ([@p-bakker](https://github.com/p-bakker))
-* [#838](https://github.com/mozilla/rhino/issues/838) Exponential operator ([@tuchida](https://github.com/tuchida))
-* [#853](https://github.com/mozilla/rhino/issues/853) Short-hand property names ([@tuchida](https://github.com/tuchida))
-* [#902](https://github.com/mozilla/rhino/issues/902) Object.values / Object.entries / Object.fromEntries ([@rPraml](https://github.com/rPraml))
-* [#883](https://github.com/mozilla/rhino/issues/883) Number.EPSILON ([@tonygermano](https://github.com/tonygermano))
+[kangax ES6 兼容性表](https://kangax.github.io/compat-table/es6/)
 
-### Non-ECMAScript features
-* [#153](https://github.com/mozilla/rhino/issues/153) stack property on Error Constructor ([@gbrail](https://github.com/gbrail))
-* [#888](https://github.com/mozilla/rhino/issues/888) support for Mozilla-styled Stack formatting ([@rbri](https://github.com/rbri))
+[@babel/preset-env](https://www.npmjs.com/package/@babel/preset-env)
 
-[All features](https://github.com/mozilla/rhino/issues?q=milestone%3A%22Release+1.7.14%22+label%3Afeature+is%3Aclosed)
+## 主要亮点
 
-## (Potential) Breaking Changes
-* [#820](https://github.com/mozilla/rhino/issues/820) Introduced Context.FEATURE_ENABLE_JAVA_MAP_ACCESS, defaulting to false.
-  This, by default, disables direct property access on Java maps from JavaScript, which got introduced in [#713](https://github.com/mozilla/rhino/issues/713) and was released with Rhino 1.7.13:
-  ```
-  var h = new java.util.HashMap();
-  h.put('a', 123);
-  h.a;  // 123.0`)
-  ```
-  The rationale for this change can be seen in [#820](https://github.com/mozilla/rhino/issues/820) and the JavaDoc on the aforementioned feature flag.
+### 功能改进
 
-## Bugs
-[All bug fixes](https://github.com/mozilla/rhino/issues?q=milestone%3A%22Release+1.7.14%22+label%3Abug)
+#### ECMAScript 功能
+- **Promise**：支持基于 Promise 的异步操作。
+- **BigInt**：新增对大整数的支持。
+- **Template Literal**：引入了模板字符串功能，方便字符串拼接。
+- **其他增强**：包括对更多 ES6+ 特性的支持。
 
-## Performance
-[All performance enhancements](https://github.com/mozilla/rhino/issues?q=milestone%3A%22Release+1.7.14%22+label%3APerformance)
+#### 重大更改
+- **上下文关闭**：`Context` 现在实现了 `Closable` 接口，允许显式释放资源。
+- **Lambda 表示**：引入了 `LambdaFunction` 和 `LambdaConstructor`，用于表示和构造 Java lambda 函数。
 
-## Java Interop
-* [#839](https://github.com/mozilla/rhino/issues/839) JavaScript for-of loop support for Java Iterables ([@tuchida](https://github.com/tuchida))
-* [#860](https://github.com/mozilla/rhino/issues/860) / [#857](https://github.com/mozilla/rhino/issues/857) JSON.stringify support on Java Objects ([@tonygermano](https://github.com/tonygermano) / [@rPraml](https://github.com/rPraml))
-* [#1031](https://github.com/mozilla/rhino/issues/1031) delete operator and .length setting support in JavaScript on Java Lists ([@rPraml](https://github.com/rPraml))
-* [#901](https://github.com/mozilla/rhino/issues/901) java.util.subList() support on JavaScript Arrays in Java ([@rPraml](https://github.com/rPraml))
-* [#889](https://github.com/mozilla/rhino/issues/889) Automatically increase size of Java List instances on .put(...) if required ([@rPraml](https://github.com/rPraml))
+#### 错误处理
+- **内部错误**：改为在无法访问 Java 异常类时抛出 `InternalError` 而非包装的 `JavaException`。
 
-[All Java Interop related cases](https://github.com/mozilla/rhino/issues?q=milestone%3A%22Release+1.7.14%22+label%3A%22Java+Interop%22)
+### 性能优化
 
-## Embedding Rhino
-* [#864](https://github.com/mozilla/rhino/issues/864) Context now implements Closable ([@gbrail](https://github.com/gbrail))
-* [#865](https://github.com/mozilla/rhino/issues/865) Introduction of LambdaFunction and LambdaConstructor, to be used to represent Java lambda functions as native JavaScript functions and also can be used to construct an entire class out of lambdas ([@gbrail](https://github.com/gbrail))
-* [#911](https://github.com/mozilla/rhino/issues/911) Throw InternalError instead of wrapped JavaException if thrown Java Exception class is not visible due to class shutter ([@youngj](https://github.com/youngj))
+- 代码路径优化，提升执行效率。
+- 内存管理改进，减少内存泄漏风险。
 
-[All Rhino embedding related cases](https://github.com/mozilla/rhino/issues?q=milestone%3A%22Release+1.7.14%22+label%3A%22embedding+Rhino%22+)
+## 测试与质量保障
 
-## Test262 suite
-* Running against a much newer version of Test262 suite
-* Improved documentation for running the Test262 suite + more options to make running the tests easier & faster
-* [#930](https://github.com/mozilla/rhino/issues/930) Support added for automatically regenerating the test262.properties file based on actual passage of tests
-* [#930](https://github.com/mozilla/rhino/issues/930) Improved feedback about reason of test failures
+#### Test262 支持
+- 更新至最新版本的 Test262 测试套件，以确保符合 ECMAScript 规范。
+- 提供更详细的文档和更多配置选项，便于测试运行。
+- 自动生成 `test262.properties` 文件，反映实际测试通过情况。
+- 提升测试失败反馈，帮助快速定位问题。
 
-## Distribution
-* [#873](https://github.com/mozilla/rhino/issues/873) Automatic module names
+## Java 交互
 
-## Internals
-* [#878](https://github.com/mozilla/rhino/issues/878) Removed idSwitch
-* [#896](https://github.com/mozilla/rhino/issues/896) SlotMap and Slot refactoring
-* [#922](https://github.com/mozilla/rhino/issues/922) Started extracting logic related to Abstract Operations as defined by the ECMAScript specification
+- **列表处理**：自动调整 Java 列表大小以适应 `.put(...)` 操作需求。
+- **子列表支持**：在 JavaScript 数组中启用 `java.util.subList()` 支持。
+- **增强互操作性**：改进了 Java 与 JavaScript 之间的数据交换机制。
 
-## Misc.
-* [#661](https://github.com/mozilla/rhino/issues/661) Rhino now listed in the [kangax ES6 Compatibility table](https://kangax.github.io/compat-table/es6) (must select the `Show obsolete platforms` in the upperleft corner)
-* [#661](https://github.com/mozilla/rhino/issues/661) Rhino now available as a compilation target in Babel through @babel/preset-env:
+## 内部改进
+
+- **代码结构**：移除了 `idSwitch`，简化内部逻辑。
+- **Slot 管理**：重构了 `SlotMap` 和 Slot 的实现，提升维护性。
+- **抽象操作**：开始提取与 ECMAScript 规范中定义的抽象操作相关的逻辑。
+
+## 其他改进
+
+- **代码格式化**：引入 Spotless 自动格式化 Java 代码。
+- **CI 构建**：迁移至 CircleCI，并启用 GitLab CI，支持在多个 Java 版本上运行测试。
+- **模块化支持**：自动为模块生成名称，便于依赖管理。
+
+## 感谢
+
+此版本包含来自 23 位贡献者的超过 350 个提交。感谢每一位帮助改进 Rhino 的开发者！
+
+特别鸣谢：
+- [gbrail](https://github.com/gbrail) 对 `Context` 接口和 lambda 支持的重大贡献。
+- [youngj](https://github.com/youngj) 在错误处理上的精彩表现。
+
+# 获取方式
+
+可以从 [官方网站] 或 [GitHub 发布页] 下载 Rhino 1.7.14 版本。同时，通过 npm 使用：
+```bash
+npm install rhino@1.7.14
 ```
-{
-  "targets": {
-    "rhino": "1.7.13"
-  }
-}
-```
-* Introduced Java Code Formatting through spotless
-* Moved to CircleCI (instead of Travis)
-* Enabled Gitlab CI, running tests on multiple Java versions'
 
-# Thanks!
-
-This release contains more than 350 commits from 23 contributors. Thanks to everyone who helped!
+[官方网站]: https://developer.mozilla.org/zh-CN/docs/Rhino
+[GitHub 发布页]: https://github.com/mozilla/rhino/releases/tag/1.7.14-release

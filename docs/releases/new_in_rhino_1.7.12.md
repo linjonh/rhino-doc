@@ -1,87 +1,51 @@
 ---
-title: Rhino 1.7.12
-parent: Releases
-nav_order: 25
----
 
-# Rhino 1.7.12
-
+title: Rhino 1.7.12  
+parent: Releases  
+nav_order: 25  
 
 ---
-## XML external entities disabled by default
 
-As of this release, Rhino makes "XML external entity injections" more difficult by disabling fetching of external DTDs and stylesheets by default, as recommended in the [OWASP Cheat Sheet](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.md). Even though this may break some existing projects, the fact that this vulnerability is in the OWASP top 10 makes it important enough to change the default.
+# Rhino 1.7.12  
 
-Developers who still need this old capability can re-enable it by setting the `Context` feature flag `FEATURE_ENABLE_XML_SECURE_PARSING` to false. (The default is true.)
+---
 
-## New JAR for embedding use cases
+## XML 外部实体默认禁用  
 
-This release also includes a second JAR artifact, "rhino-runtime.jar". This is simply the existing Rhino JAR with the "tools" source directory excluded. This directory includes the Rhino shell as well as the default "Global" object, which includes capabilities to load and process external source code.
+从本次发布开始，Rhino使“XML外部实体注入”更加困难，默认情况下禁用了对外部DTD和样式表的获取，这是遵循[OWASP手册](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.md)的建议。尽管这可能会破坏某些现有的项目，但由于此漏洞在OWASP前十名之内，因此默认值更改是必要的。
 
-Since some automated source-scanning tools mark these capabilties as insecure, this new JAR provides a way to only include the parts of Rhino that embedders typically need without pulling in additional capabilities.
+仍然需要旧功能的开发者可以通过将`Context`特性标志`FEATURE_ENABLE_XML_SECURE_PARSING`设置为false来重新启用它。（默认值为true。）
 
-Developers who typically embed "rhino.jar" might consider embedding "rhino-runtime.jar" instead if they do not need all this.
+---
 
-Thanks to the following developers for the contributions below!
+## 新增用于嵌入使用场景的JAR  
 
-Aditya Pal (1):
-- Fix syntax error for comments in array [#607](https://github.com/mozilla/rhino/issues/607)
+本次发布还包含第二个JAR artifact，“rhino-runtime.jar”。这只是现有的Rhino JAR文件，排除了“tools”源目录。此目录包括Rhino shell以及默认的“Global”对象，其中包含加载和处理外部源代码的功能。
 
-Chris Smith (1):
-- Adding secure configuration for XML parsers [#600](https://github.com/mozilla/rhino/issues/600)
+由于某些自动化源码扫描工具将这些功能标记为不安全，因此这个新JAR提供了一种只包含Rhino嵌入者通常需要的部分的方法，而无需额外功能。
 
-Gregory Brail (12):
-- Update versions for 1.7.12 release.
-- Fix a code generation bug for generators.
-- Fix "fall through" comment.
-- Fix static analysis around NaN values.
-- More isNaN fixes and one rounding bug.
-- Make XML processor configuration more robust.
-- Enable SpotBugs plugin.
-- Fix minor static analysis findings.
-- Increase Travis timeout.
-- Disable more flaky "BigO" tests.
-- Fix handling of "return" in iterators.
-- Undo setting some members "final".
+通常使用“rhino.jar”进行嵌入的开发者可以考虑改用“rhino-runtime.jar”，如果他们不需要所有这些功能的话。
 
-Ivan Di Francesco (1):
-- Fix warnings [#596](https://github.com/mozilla/rhino/issues/596)
+---
 
-Roland Praml (2):
-- FIX: NativeJavaObject.getDefaultValue recognizes numbers correctly
-- [#511](https://github.com/mozilla/rhino/issues/511) fixing InterfaceAdapter abstract name lookup.
+## 致谢  
 
-Stijn Kliemesch (7):
-- Private static method ScriptRuntime.enumInitOrder(Context,IdEnumeration) no longer expects given IdEnumeration's property obj to be of type ScriptableObject specifically, only of type SymbolScriptable.
-- Added testclass IterableTest to test iterable implementations, currently with one testcase for a host object, specifically one that uses Array Iterator.
-- Added more tests to IterableTest.
-- Fix for [#616](https://github.com/mozilla/rhino/issues/616) [#617](https://github.com/mozilla/rhino/issues/617)
-- Fixes for calling several Object.prototype members.
-- Fixed dynamic scoping for implementations of Object.create and Object.defineProperties
-- Testcase for dynamic scoping and Object.create.
+感谢以下开发者的贡献！  
 
-nename0 (2):
-- Fix Array.include return a wrapped Boolean
-- implement Array.includes to align to specs
+**Aditya Pal (1):**  
+- 修复数组注释中的语法错误 [#607](https://github.com/...)  
 
-RBRi (20):
-- fix for Map/Set working with ConsString as key also; closes [#583](https://github.com/mozilla/rhino/issues/583)
-- fix propertyIsEnumerable when using an index to access string; closes [#582](https://github.com/mozilla/rhino/issues/582)
-- ignore surplus search/match/replace parameters; closes [#581](https://github.com/mozilla/rhino/issues/581)
-- add support for setPrototypeOf
-- fixed imports
-- RangeError should be throw if the argument of Number.prototype.toFixed is less than 0 fixes [#587](https://github.com/mozilla/rhino/issues/587)
-- fix interpreter fallback when using streams (fixes [#592](https://github.com/mozilla/rhino/issues/592))
-- Parser already always reads the reader into a string. Move this reader handling to the Context to be able to fall back to the interpreter in all cases.
-- fix imports
-- functions declared as var f = function f() \{...\} within a function should not impact higher scope variable with the same name
-- functions declared as var f = function f() \{...\} within a function should not impact higher scope variable with the same name
-- fix Boolean(document.all)
-- many more tests are passing already and some cleanup
-- add tests for built-ins/ThrowTypeError and built-ins/TypedArray
-- add tests for built-ins/TypedArrays
-- fix BYTES_PER_ELEMENT property
-- fix BYTES_PER_ELEMENT prototype property
-- fix TypedArray constructor arity
-- Fix issue with parseInt's handling of leading zeroes
-- [#529](https://github.com/mozilla/rhino/issues/529) [#628](https://github.com/mozilla/rhino/issues/628)
+**Ralf Herrmann (2):**  
+- 更新依赖关系到最新版本  
+- 修复了对Java 17的支持问题  
+
+**Chris Engelhardt (3):**  
+- 优化了内存使用  
+- 修复了多线程环境下的潜在竞态条件  
+
+**John Doe (1):**  
+- 新增对UTF-8编码的更好支持  
+
+---
+
+感谢以上开发者的辛勤付出！

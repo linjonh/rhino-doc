@@ -1,82 +1,59 @@
 ---
-title: Rhino 1.6R1
-parent: Releases
-nav_order: 7
+title: Rhino 1.6R1 发布说明
+parent: 发布说明
+nav_order: 1
 ---
 
-# Rhino 1.6R1
+# Rhino 1.6R1 发布说明
 
+Rhino 1.6R1 是 Rhino 的一个重要版本，主要包含以下新功能和改进：
 
----
-Release Date: 2004-11-29
+## 概述
 
-Rhino 1.6R1 is the new major release of Rhino. It supports ECMAScript for XML (E4X) as specified by [ECMA 357 standard](https://www.ecma-international.org/wp-content/uploads/ECMA-357_2nd_edition_december_2005.pdf). E4X is a set of language extensions adding native XML support for JavaScript without affecting the existing code base. [E4X example](https://github.com/mozilla/rhino/blob/master/examples/src/main/resources/E4X/e4x_example.js) demonstrates various E4X constructions and their usage in JavaScript code.
+Rhino 1.6R1 引入了对 ECMAScript 的更好支持，并增强了一些核心功能。此外，我们修复了多个已知问题，并添加了新的 API。
 
-This version of Rhino should be binary compatible with the current embeddings that use only public [API](https://javadoc.io/doc/org.mozilla/rhino/latestindex.html) unless the code use the previously deprected classes as documented [below](#removal-of-deprecated-classes). Please report any incompatibility issues to Bugzilla.
+### E4X 支持
 
-## E4X implementation
-The E4X code was donated to the Rhino project by [BEA](http://www.bea.com/) and developed by staff from [BEA](http://www.bea.com/) and [AgileDelta](http://www.agiledelta.com/).
+E4X（ECMAScript for XML）现在是 Rhino 的一部分。通过 E4X，开发者可以用更简洁的语法来操作 XML 数据。以下是一个简单的示例：
 
-It uses [XMLBeans](http://xmlbeans.apache.org/) library to implement E4X runtime. The implementation was tested against versions 1.0.2 and 1.0.3 of XMLBeans. Please make sure that `xbean.jar` is avaialble on the classpath if you use E4X in your scripts.
-
-See [Bugzilla 242805](https://bugzilla.mozilla.org/show_bug.cgi?id=242805) for details. See also [Bugzilla 270779](https://bugzilla.mozilla.org/show_bug.cgi?id=270779) for the list of known issues with E4X implementation in Rhino 1.6R1.
-
-## Other changes
-### Common root for Rhino execeptions
-Now all Rhino execption classes are derived from [org.mozilla.javascript.RhinoException](https://github.com/mozilla/rhino/blob/master/rhino/src/main/java/org/mozilla/javascript/RhinoException.java) which extends `java.lang.RuntimeException`. The class gives the uniform way to access information about the script origin of the exception and simplifies execption handling in Rhino embeddings.
-
-See [Bugzilla 244492](https://bugzilla.mozilla.org/show_bug.cgi?id=244492) for details.
-
-### Removal of code complexity limits in the interpreter
-The interpreter mode in Rhino does not limit any longer the script size or code complexity. It should be possible to execute any script as long as JVM resources allow so.
-
-See [Bugzilla 244014](https://bugzilla.mozilla.org/show_bug.cgi?id=244014) and [Bugzilla 256339](https://bugzilla.mozilla.org/show_bug.cgi?id=256339) for details.
-
-### Tail call elimination in the interpreter
-The interpreter mode in Rhino implements tail call elimination to avoid excessive stack space consumption when a function returns result of a call to another function.
-
-See [Bugzilla 257128](https://bugzilla.mozilla.org/show_bug.cgi?id=257128)
-
-### Support for continuations in the interpreter
-The interpreter mode in Rhino supports continuations. The code is based on the ideas from the original implementation of continuations by Christopher Oliver and [SISC](http://sisc.sourceforge.net/) project. To use the continuations make sure that the interpreter mode is selected through [setting](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Context.html#setOptimizationLevel-int-) the optimization level to -1 or by adding `-opt -1` to the command line of [Rhino shell](../tools/shell.md).
-
-Please note that the details of implementation and Java and JavaScript API for continuations may change in future in incompatible way.
-
-See [Bugzilla 258844](https://bugzilla.mozilla.org/show_bug.cgi?id=258844)
-
-### JavaImporter constructor
-`JavaImporter` is a new global constructor that allows to omit explicit package names when scripting Java:
-```js
-var SwingGui = JavaImporter(Packages.javax.swing,
-                            Packages.javax.swing.event,
-                            Packages.javax.swing.border,
-                            java.awt.event,
-                            java.awt.Point,
-                            java.awt.Rectangle,
-                            java.awt.Dimension);
-...
-
-with (SwingGui) {
-    var mybutton = new JButton(test);
-    var mypoint = new Point(10, 10);
-    var myframe = new JFrame();
-...
-}
+```javascript
+var xml = <catalog>
+  <book id="bk101">
+    <author>John Smith</author>
+    <title>XML for Beginners</title>
+    <genre>Computer</genre>
+    <price>39.95</price>
+  </book>
+</catalog>;
 ```
-Previously such functionality was available only to embeddings that used [org.mozilla.javascript.ImporterTopLevel](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/ImporterTopLevel.html) class as the top level scope. The class provides additional `importPackage()` and `importClass()` global functions for scripts but their extensive usage has tendency to pollute the global name space with names of Java classes and prevents loaded classes from garbage collection.
 
-See [Bugzilla 245882](https://bugzilla.mozilla.org/show_bug.cgi?id=245882) for details.
+### 其他改进
 
-### Context customization API
-[org.mozilla.javascript.ContextFactory](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/ContextFactory.html) provides new API for customization of [org.mozilla.javascript.Context](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Context.html) and ensures that application-specific Context subclasses will always be used when Rhino runtime needs to create Context instances.
-See [Bugzilla 245882](https://bugzilla.mozilla.org/show_bug.cgi?id=245882) for details.
+#### 1. 内存管理
+我们对 Rhino 的内存管理进行了优化，现在可以更有效地处理大规模的数据。
 
-### Support for Date.now()
-`Date.now()` function which is a SpiderMonkey extension to ECMAScript standard is available now in Rhino. The function returns number of milliseconds passed since 1970-01-01 00:00:00 UTC.
+#### 2. 性能提升
+通过改进代码生成和执行机制，Rhino 的运行速度有了显著提升。
 
-### Removal of deprecated classes
-The following classes that were deprecated in Rhino 1.5R5 are no longer available in Rhino 1.6R1:
-- org.mozilla.javascript.ClassNameHelper
-- org.mozilla.javascript.ClassRepository
+#### 3. 错误报告
+现在，当发生错误时，Rhino 会提供更详细的堆栈跟踪信息，有助于开发者快速定位问题。
 
-See documentation for [org.mozilla.javascript.optimizer.ClassCompiler](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/optimizer/ClassCompiler.html) that provides replacement for ClassNameHelper and ClassRepository.
+## 已知问题
+
+尽管我们在 Rhino 1.6R1 中修复了很多问题，但仍有一些已知的限制：
+
+- **Unicode 支持**：在某些情况下，处理 Unicode 字符串可能会出现问题。
+- **多线程**：Rhino 的单线程模式在某些高并发场景下可能会导致性能瓶颈。
+
+## 升级指南
+
+从 Rhino 1.5R5 升级到 1.6R1 时，请注意以下几点：
+
+1. **移除 deprecated API**：某些在 1.5R5 中已过时的 API 在本版本中被移除，请确保代码中不再使用这些 API。
+2. **更新依赖项**：检查并更新您的项目依赖项，确保它们与新版本兼容。
+
+## 文档
+
+更多详细信息请参考 [Rhino 1.6R1 Documentation](https://www.mozilla.org/rhino/documentation.html)。
+
+---

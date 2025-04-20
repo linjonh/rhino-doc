@@ -6,32 +6,31 @@ nav_order: 2
 
 # Rhino 1.5R2
 
-
 ---
-This is a log of significant changes since the release of Rhino 1.5 Release 1.
+这是自 Rhino 1.5 Release 1 发布以来显著更改的日志。
 
-## Graphical debugger
-Thanks to a contribution by Christopher Oliver, Rhino now has a graphical debugger. See [Rhino Debugger](../tools/debugger.md) for more details.
+## 图形化调试器
+感谢 Christopher Oliver 的贡献，Rhino 现在拥有了图形化调试器。请参阅 [Rhino 调试器](../tools/debugger.md) 以获取更多详细信息。
 
-## Footprint reductions
-Igor Bukanov has provided a wealth of changes to reduce the number and size of objects required by Rhino. In particular, he introduced a new way to represent the built-in objects like Date and RegExp that reduces the amount of memory required and speeds up `Context.initStandardObjects`.
+## 减少内存占用
+Igor Bukanov 提供了一系列改进，以减少 Rhino 所需的对象数量和大小。特别是，他引入了新的方法来表示内置对象（如 Date 和 RegExp），从而减少了所需的内存量，并加快了 `Context.initStandardObjects` 的执行速度。
 
-## Interpreted mode performance improvements
-Igor Bukanov also made a number of improvements to interpreter mode performance.
+## 解释模式性能改进
+Igor Bukanov 还对解释器模式的性能进行了一系列改进。
 
-## JS/CORBA Adapter
-Matthias Radestock wrote a module that allows JavaScript code to interact with CORBA. See [jscorba](http://sourceforge.net/projects/jscorba) for more details.
+## JS/CORBA 适配器
+Matthias Radestock 编写了一个模块，使 JavaScript 代码能够与 CORBA 交互。请参阅 [jscorba](http://sourceforge.net/projects/jscorba) 以获取更多详细信息。
 
-## Directory restructuring and Ant buildfile
-I've restructured the the Rhino directory and written an [Ant](http://jakarta.apache.org/ant/index.html) buildfile. This should make building easier and more consistent with other open source Java projects.
+## 目录重组和 Ant 构建文件
+我对 Rhino 的目录进行了重组，并编写了一个 [Ant](http://jakarta.apache.org/ant/index.html) 构建文件。这将使构建过程更加简单，并与其他开源 Java 项目更一致。
 
-## FlattenedObject deprecated
-I wrote FlattenedObject to provide a means for dealing with JavaScript objects in prototype chains. Where Scriptable defines the primitive operations, FlattenedObject defines the aggregate operations of manipulating properties that may be defined in an object or in an object reachable by a succession of getPrototype calls. However, I now believe that I designed FlattenedObject poorly. Perhaps it should have been a clue that I was never satisfied with the name: if it's hard to express the name of the object it may mean the function the object is supposed to fulfill is not well defined either. The problem is that it is inefficient since it requires an extra object creation, and balky because of that extra level of wrapping.
+## FlattenedObject 弃用
+我编写了 FlattenedObject 以提供一种处理 JavaScript 对象原型链的方法。虽然 Scriptable 定义了基本操作，但 FlattenedObject 定义了操作属性的聚合操作，这些属性可能定义在对象中或通过 getPrototype 调用序列可达到的对象中。然而，我现在认为 FlattenedObject 的设计不佳。也许它的名字就应该是一个线索：如果很难表达这个对象的名称，那么它所谓的功能可能并不明确。问题是，它效率低下，因为需要额外创建一个对象，并且因为多了一层包装而显得笨拙。
 
-So I've checked in changes that deprecate FlattenedObject. I've introduced new static methods in ScriptableObject (thanks to beard@netscape.com for the idea) that replace the functionality. These methods perform the get, put, and delete operations on a Scriptable object passed in without the overhead of creating a new object.
+因此，我提交了修改，弃用了 FlattenedObject。我在 ScriptableObject 中引入了新的静态方法（感谢 beard@netscape.com 的想法）来替代其功能。这些方法对传入的 Scriptable 对象执行 get、put 和 delete 操作，而不需要创建新对象的额外开销。
 
-## WrapHandler interface
-Embeddings that wish to provide their own custom wrappings for Java objects may implement this interface and call Context.setWrapHandler. See WrapHandler javadoc.
+## WrapHandler 接口
+如果嵌入式环境希望为 Java 对象提供自定义包装，则可以实现此接口并调用 Context.setWrapHandler。请参阅 WrapHandler 的 Javadoc。
 
-## ClassOutput interface
-An interface embedders can implement in order to control the placement of generated class bytecodes. See the javadoc.
+## ClassOutput 接口
+这是一个嵌入者可以实现的接口，以控制生成的类字节码的位置。请参阅相应的 Javadoc。
