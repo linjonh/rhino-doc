@@ -18,6 +18,3 @@ Rhino代码库的一部分采用了不同的许可证进行分发
 
 ### Rhino 调试器部分的许可证
 目录 [rhino-tools/src/main/java/org/mozilla/javascript/tools/debugger/treetable](https://github.com/mozilla/rhino/tree/master/rhino-tools/src/main/java/org/mozilla/javascript/tools/debugger/treetable) 中的文件版权归Sun Microsystems, Inc.所有，详见 [NOTICE-tools.txt](https://github.com/mozilla/rhino/blob/master/NOTICE-tools.txt)
-```
-
-希望这对你有帮助！

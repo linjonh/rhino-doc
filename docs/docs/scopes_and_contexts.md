@@ -1,8 +1,8 @@
 ---
-title: "Scopes and contexts"
+title: "作用域和上下文"
 ---
 
-# Scopes and contexts
+# 作用域和上下文
 
 
 ---

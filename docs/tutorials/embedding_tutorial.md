@@ -1,8 +1,8 @@
 ---
-title: "Embedding Rhino"
+title: "嵌入Rhino"
 ---
 
-# Embedding Rhino
+# 嵌入Rhino
 
 
 ---

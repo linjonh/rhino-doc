@@ -1,8 +1,8 @@
 ---
-title: "Scripting Java"
+title: "Java脚本"
 ---
 
-# Scripting Java
+# Java脚本
 
 
 ---

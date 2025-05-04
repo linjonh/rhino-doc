@@ -10,8 +10,8 @@ import { themes as prismThemes } from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Rhino',
-  tagline: 'Rhino is an open-source implementation of JavaScript written entirely in Java',
+  title: 'Rhino文档',
+  tagline: 'Rhino是一个完全用Java语言编写的开源JavaScript实现',
   favicon: 'img/favicon.ico',
   markdown: ({
     parseFrontMatter: async (params) => {
@@ -54,8 +54,8 @@ const config = {
           sidebarPath: './sidebars.js',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          // editUrl:
+          //   'https://github.com/linjonh/rhino-doc/tree/docus/',
         },
         blog: {
           showReadingTime: true,
@@ -65,8 +65,8 @@ const config = {
           },
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          // editUrl:
+          //   'https://github.com/linjonh/rhino-doc/tree/docus/',
           // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
@@ -85,7 +85,7 @@ const config = {
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
-        title: 'Tech Docs',
+        title: '中文文档',
         logo: {
           alt: 'My Site Logo',
           src: 'img/logo.svg',
@@ -95,11 +95,11 @@ const config = {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
-            label: 'RhinoDocs',
+            label: 'Rhino文档',
           },
           // {to: '/blog', label: 'Blog', position: 'left'},
           {
-            href: 'https://github.com/mozilla/rhino',
+            href: 'https://github.com/linjonh/rhino-doc.git',
             label: 'GitHub',
             position: 'right',
           },
@@ -113,24 +113,24 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Docs',
+            title: '文档',
             items: [
               {
-                label: 'RhinoDocs',
+                label: 'Rhino文档',
                 to: '/docs/',
               },
               {
-                label: 'JavaDoc',
+                label: 'JavaAPI文档',
                 href: 'https://javadoc.io/doc/org.mozilla/rhino',
               },
               {
-                label: "Kangax's Compat Tables",
+                label: "Kangax兼容表",
                 href: 'https://mozilla.github.io/rhino/compat/engines.html',
               },
             ],
           },
           {
-            title: 'Community',
+            title: '社区',
             items: [
               {
                 label: 'Stack Overflow',
@@ -147,17 +147,17 @@ const config = {
             ],
           },
           {
-            title: 'More',
+            title: '更多',
             items: [
               // { label: 'Blog', to: '/blog', },
               {
                 label: 'GitHub',
-                href: 'https://github.com/mozilla/rhino',
+                href: 'https://github.com/linjonh/rhino-doc.git',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} linjonh, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} linjonh, Inc.`,
       },
       prism: {
         theme: prismThemes.github,

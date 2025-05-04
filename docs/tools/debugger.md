@@ -1,8 +1,8 @@
 ---
-title: "Debugger"
+title: "调试器"
 ---
 
-# Debugger
+# 调试器
 
 
 ---
