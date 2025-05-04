@@ -168,7 +168,20 @@ const config = {
         darkTheme: prismThemes.dracula,
       },
     }),
-
+  headTags: [
+    // add google adsense
+    // <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5363852791482518"
+    //  crossorigin="anonymous"></script>
+    {
+      tagName: "script",
+      attributes: {
+        async: "true",
+        crossorigin: "anonymous",
+        src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5363852791482518",
+        // "data-ad-client": "ca-pub-5363852791482518",
+      },
+    },
+  ]
 };
 
 export default config;
