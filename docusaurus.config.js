@@ -181,6 +181,21 @@ const config = {
         // "data-ad-client": "ca-pub-5363852791482518",
       },
     },
+    {//搜狗验证 <meta name="sogou_site_verification" content="czi2iTpmAJ" />
+      tagName:"meta",
+      attributes:{
+        name:"sogou_site_verification",
+        content:"czi2iTpmAJ"
+      }
+    },
+    {
+      //360验证 <meta name="360-site-verification" content="0c044ff9a05b6e3b18f7db19bdd7d693" />
+      tagName:"meta",
+      attributes:{
+        name:"360-site-verification",
+        content:"0c044ff9a05b6e3b18f7db19bdd7d693"
+      }
+    }
   ]
 };
 
