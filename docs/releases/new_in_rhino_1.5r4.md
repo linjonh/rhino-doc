@@ -93,7 +93,7 @@ obj.someMethod();
 - [181834](http://bugzilla.mozilla.org/show_bug.cgi?id=181834) 在用动态作用域编译函数时使用错误的作用域（仅解释模式）。
 - [181909](http://bugzilla.mozilla.org/show_bug.cgi?id=181909) 一些 Error 回归测试无效。
 - [182028](http://bugzilla.mozilla.org/show_bug.cgi?id=182028) 在 ScriptableObject 的 get() 中调用 has() 会导致 getter 方法未被调用。
-- [184107](http://bugzilla.mozilla.org/show_bug.cgi?id=184107) with(...) { function f ... } 应该在全局作用域中设置 f。
+- [184107](http://bugzilla.mozilla.org/show_bug.cgi?id=184107) `with(...) { function f ... }` 应该在全局作用域中设置 f。
 - [184111](http://bugzilla.mozilla.org/show_bug.cgi?id=184111) 使用 Rhino JavaScript 调试器时抛出的 ArrayOutOfBoundsException。
 - [185165](http://bugzilla.mozilla.org/show_bug.cgi?id=185165) 对 "\\" 的反编译结果为损坏的 "\"。
 - [189183](http://bugzilla.mozilla.org/show_bug.cgi?id=189183) Debugger source frame window 分层修复。

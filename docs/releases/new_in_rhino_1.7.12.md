@@ -76,8 +76,8 @@ RBRi (20):
 - 修复使用流时的解释器回退问题（修复 [#592](https://github.com/mozilla/rhino/issues/592)）
 - 解析器已始终将reader读入字符串。将此reader处理移至Context，以便在所有情况下回退到解释器。
 - 修复导入问题
-- 在函数内部声明为 var f = function f() {…} 的函数不应该影响作用域更高的变量。
-- 在函数内部声明为 var f = function f() {…} 的函数不应该影响作用域更高的变量。
+- 在函数内部声明为 `var f = function f() {…}` 的函数不应该影响作用域更高的变量。
+- 在函数内部声明为 `var f = function f() {…}` 的函数不应该影响作用域更高的变量。
 - 修复Boolean(document.all)
 - 更多测试已经通过，同时进行一些清理。
 - 为内置/ThrowTypeError和内置/TypedArray添加测试。
