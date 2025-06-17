@@ -20,7 +20,7 @@ const FeatureList = [
     Svg: require("@site/static/img/undraw_docusaurus_tree.svg").default,
     description: (
       <>
-        {/* Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
+        {/* Docusaurus lets you focus on your docs, and we'll do the chores. Go
         ahead and move your docs into the <code>docs</code> directory. */}
         JavaAPI是Rhino的核心API，它提供了与JavaScript引擎交互的接口。
         它允许开发人员在Java应用程序中执行JavaScript代码，并与Java对象进行交互。

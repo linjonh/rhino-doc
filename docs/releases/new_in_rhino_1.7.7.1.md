@@ -1,25 +1,22 @@
 ---
-
-title: Rhino 1.7.7.1  
-parent: Releases  
-nav_order: 20.1  
-
+title: Rhino 1.7.7.1
+parent: Releases
+nav_order: 20.1
 ---
 
-# Rhino 1.7.7.1  
+# Rhino 1.7.7.1
 
-本次发布修复了几个影响代码运行的关键问题：  
-- 提升 `String.prototype.repeat` 的性能，并防止溢出。  
-- 修复 `CallSite.isNative()` 和 `isTopLevel()`，确保它们不会抛出致命错误。  
-- 更换 `Date` 类内部方法 "YearFromTime" 的实现，以避免大量 CPU 循环。
-
-具体更改：  
-- 修正了 `SourceReader` 的格式问题。  
-- 修改 `CallSite.isNative()` 和 `isTopLevel()`，防止它们抛出错误。  
-- 改进 `String.prototype.repeat`，在处理大数值时避免溢出，并稍微调整代码风格。  
-- 增加来自 1.7.7 版本的测试用例。  
-- 增加来自 1.7.7 版本的 Gradle 代码。  
-- 用 `jsdate.cpp` 中的代码替换 "YearFromTime"，以避免长时间 CPU 循环。  
 
 ---
+此版本修复了一些影响实际代码的关键问题：
+- 改进 String.prototype.repeat，使其更高效并避免溢出
+- 修复 CallSite.isNative() 和 isTopLevel()，使其不抛出致命错误
+- 替换 Date 类的内部方法 "YearFromTime" 实现，以避免大规模 CPU 循环
 
+具体变更内容：
+- 从 SourceReader 修复格式问题。
+- 修复 CallSite.isNative() 和 isTopLevel()，使其不抛出错误。
+- 使 String.prototype.repeat 在处理大值时不溢出，并调整代码风格。
+- 添加从 1.7.7 中的测试。
+- 添加从 1.7.7 中的 Gradle 代码。
+- 用 jsdate.cpp 中的代码替换 YearFromTime，以避免长时间的 CPU 循环。

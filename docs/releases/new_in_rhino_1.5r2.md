@@ -6,31 +6,32 @@ nav_order: 2
 
 # Rhino 1.5R2
 
+
 ---
-这是自 Rhino 1.5 Release 1 发布以来显著更改的日志。
+这是自 Rhino 1.5 第1版发布以来的重要变化日志。
 
-## 图形化调试器
-感谢 Christopher Oliver 的贡献，Rhino 现在拥有了图形化调试器。请参阅 [Rhino 调试器](../tools/debugger.md) 以获取更多详细信息。
+## 图形调试器
+感谢 Christopher Oliver 的贡献，Rhino 现在拥有了图形调试器。详情请参阅 [Rhino 调试器](../tools/debugger.md)。
 
-## 减少内存占用
-Igor Bukanov 提供了一系列改进，以减少 Rhino 所需的对象数量和大小。特别是，他引入了新的方法来表示内置对象（如 Date 和 RegExp），从而减少了所需的内存量，并加快了 `Context.initStandardObjects` 的执行速度。
+## 内存占用减少
+Igor Bukanov 提供了大量更改，从而减少了 Rhino 所需对象的数量和大小。特别是，他引入了一种新的方法来表示内置对象（如 Date 和 RegExp），这减少了所需的内存量并加快了 `Context.initStandardObjects`。
 
-## 解释模式性能改进
-Igor Bukanov 还对解释器模式的性能进行了一系列改进。
+## 解释模式性能提升
+Igor Bukanov 还对解释模式性能进行了多项改进。
 
 ## JS/CORBA 适配器
-Matthias Radestock 编写了一个模块，使 JavaScript 代码能够与 CORBA 交互。请参阅 [jscorba](http://sourceforge.net/projects/jscorba) 以获取更多详细信息。
+Matthias Radestock 编写了一个模块，可以使 JavaScript 代码与 CORBA 交互。详情请参阅 [jscorba](http://sourceforge.net/projects/jscorba)。
 
-## 目录重组和 Ant 构建文件
-我对 Rhino 的目录进行了重组，并编写了一个 [Ant](http://jakarta.apache.org/ant/index.html) 构建文件。这将使构建过程更加简单，并与其他开源 Java 项目更一致。
+## 目录重组与 Ant 构建文件
+我重新整理了 Rhino 的目录并编写了一个 [Ant](http://jakarta.apache.org/ant/index.html) 构建文件。这应该会使构建更加简便，并与其他开源 Java 项目更加一致。
 
-## FlattenedObject 弃用
-我编写了 FlattenedObject 以提供一种处理 JavaScript 对象原型链的方法。虽然 Scriptable 定义了基本操作，但 FlattenedObject 定义了操作属性的聚合操作，这些属性可能定义在对象中或通过 getPrototype 调用序列可达到的对象中。然而，我现在认为 FlattenedObject 的设计不佳。也许它的名字就应该是一个线索：如果很难表达这个对象的名称，那么它所谓的功能可能并不明确。问题是，它效率低下，因为需要额外创建一个对象，并且因为多了一层包装而显得笨拙。
+## 删除 FlattenedObject
+我编写了 FlattenedObject 来提供一种处理原型链中的 JavaScript 对象的方法。Scriptable 定义了原始操作，而 FlattenedObject 定义了操作属性的聚合操作，这些属性可以定义在对象中或通过一系列 getPrototype 调用可达的对象中。但是，我现在认为我设计 FlattenedObject 是糟糕的。或许一个线索是我对这个名字从未满意过：如果对象的名字难以表达，这可能意味着对象的功能定义也不清晰。问题在于它效率低下，因为它需要额外创建一个对象，并由于额外的包装层而显得笨重。
 
-因此，我提交了修改，弃用了 FlattenedObject。我在 ScriptableObject 中引入了新的静态方法（感谢 beard@netscape.com 的想法）来替代其功能。这些方法对传入的 Scriptable 对象执行 get、put 和 delete 操作，而不需要创建新对象的额外开销。
+因此，我已提交更改来废弃 FlattenedObject。我在 ScriptableObject 中引入了新的静态方法（感谢 beard@netscape.com 提供的建议），这些方法替代了相关功能。这些方法直接对传入的 Scriptable 对象执行获取、设置和删除操作，而无需创建新的对象。
 
 ## WrapHandler 接口
-如果嵌入式环境希望为 Java 对象提供自定义包装，则可以实现此接口并调用 Context.setWrapHandler。请参阅 WrapHandler 的 Javadoc。
+希望为 Java 对象提供自定义包装的嵌入环境可以实现此接口，并调用 Context.setWrapHandler。详情请参阅 WrapHandler 的 javadoc。
 
 ## ClassOutput 接口
-这是一个嵌入者可以实现的接口，以控制生成的类字节码的位置。请参阅相应的 Javadoc。
+嵌入者可以实现此接口，以控制生成的类字节码的放置位置。详情请参阅 javadoc。

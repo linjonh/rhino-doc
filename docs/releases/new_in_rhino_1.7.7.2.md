@@ -6,20 +6,22 @@ nav_order: 20.2
 
 # Rhino 1.7.7.2
 
-本版本包含了几个重要错误的修复，这些错误在现实应用中曾让Rhino用户遇到困扰。
 
-- 不管用户提供的比较函数有多么奇怪，都不要从array.prototype.sort()抛出Java异常。这是JavaScript和Java之间的一个主要区别，导致我们避免使用"Arrays.sort"对JavaScript数组进行排序。
-- 修复了"DataView"类中的不正确偏移量。
+---
+此版本修复了几个重要的错误，这些错误在实际使用中对 Rhino 用户造成了影响。
 
-此外，还包含了其他几个修复：
+- 无论用户提供的比较器函数多么奇怪，都不会在 array.prototype.sort() 中抛出 Java 异常。这是 JavaScript 与 Java 之间的一个重大差异，我们因此避免在 JavaScript 数组上使用 "Arrays.sort"。
+- 修复 "DataView" 类中的不正确偏移。
 
-- 始终在V8风格的堆栈跟踪中添加列号。（遗憾的是，目前始终是“0”。）
-- 支持Object.is和Object.assign。
-- 使Symbol实现与规范相匹配（仅适用于VERSION_ES6及更高版本）。
-- 避免在"toJSON"中抛出某些本机对象的内部Java异常。
-- 允许对ContinuationPending进行子类化。
-- 对于VERSION_ES6及更高版本，按照规范定义的顺序排序属性（首先是整数属性名）。
-- 修复字符串连接中的堆栈溢出问题。
-- 提升ConsString.toString的性能。
+此外，还包括其他几个修复：
 
-下一个版本可能是1.7.8。
+- 始终将列号附加到 V8 风格的堆栈跟踪中。（不幸的是，列号总是“0”。）
+- 支持 Object.is 和 Object.assign。
+- 符号实现与规范保持一致（仅适用于 VERSION_ES6 及以上版本）。
+- 避免在 "toJSON" 中对某些本地对象抛出内部 Java 异常。
+- 允许子类化 ContinuationPending。
+- 对于 VERSION_ES6 及以上版本，以规范定义的顺序对属性进行排序（整数属性名称优先）。
+- 修复字符串拼接中的堆栈溢出问题。
+- 改进 ConsString.toString 的性能。
+
+下一个版本可能是 1.7.8。

@@ -6,17 +6,17 @@ title: "嵌入Rhino"
 
 
 ---
-Embedding Rhino can be done simply with good results. With more effort on the part of the embedder, the objects exposed to scripts can be customized further.
+嵌入Rhino可以通过简单的方式实现，并且能得到良好的结果。如果嵌入者付出更多努力，还可以进一步自定义暴露给脚本的对象。
 
-This tutorial leads you through the steps from a simple embedding to more customized, complex embeddings. Fully compilable examples are provided along the way.
+本教程将带你从简单嵌入到更加自定义、复杂的嵌入步骤。对每一步提供了完整可编译的例子。
 
-The examples live in the `rhino/examples` directory in the distribution and in `mozilla/js/rhino/examples` in cvs. This document will link to them using [lxr](https://lxr.mozilla.org/).
+示例位于发布版中的`rhino/examples`目录以及CVS中的`mozilla/js/rhino/examples`中。本文档将使用[LXR](https://lxr.mozilla.org/)对它们进行链接。
 
-## RunScript: A simple embedding
+## RunScript：一个简单的嵌入
 
-About the simplest embedding of Rhino possible is the [RunScript example](https://github.com/mozilla/rhino/blob/master/examples/src/main/java/RunScript.java). All it does it read a script from the command line, execute it, and print a result.
+关于可能的最简单的Rhino嵌入示例是[RunScript示例](https://github.com/mozilla/rhino/blob/master/examples/src/main/java/RunScript.java)。它所做的就是从命令行读取一个脚本，执行它并打印结果。
 
-Here's an example use of RunScript from a shell command line:
+以下是从shell命令行使用RunScript的示例：
 
 ```sh
 $ java RunScript "Math.cos(Math.PI)"
@@ -25,31 +25,31 @@ $ java RunScript "function f(x){return x+1} f(7)"
 8
 ```
 
-Note that you'll have to have both the Rhino classes and the RunScript example class file in the classpath. Let's step through the body of `main` one line at time.
+注意，你必须将Rhino类和RunScript示例类文件都放在classpath中。让我们逐行分析`main`方法的主要代码。
 
-### Entering a Context
+### 进入上下文
 
-The code
+代码如下：
 
 ```java
 Context cx = Context.enter();
 ```
 
-Creates and enters a `Context`. A `Context` stores information about the execution environment of a script.
+创建并进入一个`Context`。`Context`保存有关脚本执行环境的信息。
 
-### Initializing standard objects
+### 初始化标准对象
 
-The code
+代码如下：
 
 ```java
 Scriptable scope = cx.initStandardObjects();
 ```
 
-Initializes the standard objects (`Object`, `Function`, etc.) This must be done before scripts can be executed. The _null_ parameter tells `initStandardObjects` to create and return a scope object that we use in later calls.
+初始化标准对象（`Object`，`Function`等）。在执行脚本之前必须完成此步骤。_null_参数告诉`initStandardObjects`创建并返回一个在后续调用中使用的范围对象。
 
-### Collecting the arguments
+### 收集参数
 
-This code is standard Java and not specific to Rhino. It just collects all the arguments and concatenates them together.
+这是标准的Java代码，不是Rhino特有的。它仅收集所有参数并将它们连接在一起。
 
 ```java
 String s = "";
@@ -58,29 +58,29 @@ for (int i=0; i < args.length; i++) {
 }
 ```
 
-### Evaluating a script
+### 评估脚本
 
-The code
+代码如下：
 
 ```java
 Object result = cx.evaluateString(scope, s, "<cmd>", 1, null);
 ```
 
-uses the Context `cx` to evaluate a string. Evaluation of the script looks up variables in _scope_, and errors will be reported with the filename `<cmd>` and line number 1.
+使用`Context cx`评估字符串。脚本评估时会在_scope_中查找变量，错误将使用文件名`<cmd>`以及行号1报告。
 
-### Printing the result
+### 打印结果
 
-The code
+代码如下：
 
 ```java
 System.out.println(cx.toString(result));
 ```
 
-prints the result of evaluating the script (contained in the variable _result_). _result_ could be a string, JavaScript object, or other values. The `toString` method converts any JavaScript value to a string.
+打印评估脚本的结果（存储在变量_result_中）。_result_可以是字符串、JavaScript对象或其他值。`toString`方法会将任意JavaScript值转换为字符串。
 
-### Exiting the Context
+### 退出上下文
 
-The code
+代码如下：
 
 ```java
 } finally {
@@ -88,13 +88,13 @@ The code
 }
 ```
 
-exits the Context. This removes the association between the Context and the current thread and is an essential cleanup action. There should be a call to `exit` for every call to `enter`. To make sure that it is called even if an exception is thrown, it is put into the finally block corresponding to the try block starting after `Context.enter()`.
+退出Context。这会移除上下文和当前线程之间的关联，是一个必要的清理操作。每个进入的调用必须有相应的退出调用。为了确保即使抛出异常也能调用，它被放入对应于`Context.enter()`之后的try块的finally块中。
 
-## Expose Java APIs
+## 暴露Java APIs
 
-### Using Java APIs
+### 使用Java APIs
 
-No additional code in the embedding needed! The JavaScript feature called_LiveConnect_ allows JavaScript programs to interact with Java objects:
+嵌入中不需要额外代码！名为_LiveConnect_的JavaScript功能允许JavaScript程序与Java对象交互：
 
 ```sh
 $ java RunScript "java.lang.System.out.println(3)"
@@ -102,9 +102,9 @@ $ java RunScript "java.lang.System.out.println(3)"
 undefined
 ```
 
-### Implementing interfaces
+### 实现接口
 
-Using Rhino, JavaScript objects can implement arbitrary Java interfaces. There's no Java code to write -- it's part of Rhino's LiveConnect implementation. For example, we can see how to implement java.lang.Runnable in a Rhino shell session:
+使用Rhino，JavaScript对象可以实现任意Java接口。不需要编写Java代码——这是Rhino的LiveConnect实现的一部分。例如，我们可以看看如何在Rhino shell会话中实现`java.lang.Runnable`：
 
 ```js
 js> obj = { run: function() { print("hi"); } }
@@ -119,16 +119,16 @@ js> t.start()
 hi
 ```
 
-### Adding Java objects
+### 添加Java对象
 
-The next example is [RunScript2](https://github.com/mozilla/rhino/blob/master/examples/src/main/java/RunScript2.java). This is the same as RunScript, but with the addition of two extra lines of code:
+下一个示例是[RunScript2](https://github.com/mozilla/rhino/blob/master/examples/src/main/java/RunScript2.java)。它与RunScript相同，但增加了两行代码：
 
 ```java
 Object wrappedOut = Context.javaToJS(System.out, scope);
 ScriptableObject.putProperty(scope, "out", wrappedOut);
 ```
 
-These lines add a global variable `out` that is a JavaScript reflection of the `System.out` variable:
+这两行代码添加了一个全局变量`out`，它是`System.out`变量的JavaScript反射：
 
 ```sh
 $ java RunScript2 "out.println(42)"
@@ -136,40 +136,40 @@ $ java RunScript2 "out.println(42)"
 undefined
 ```
 
-## Using JavaScript objects from Java
+## 从Java使用JavaScript对象
 
-After evaluating a script it's possible to query the scope for variables and functions, extracting values and calling JavaScript functions. This is illustrated in the [RunScript3](https://github.com/mozilla/rhino/blob/master/examples/src/main/java/RunScript3.java) example. This example adds the ability to print the value of variable _x_ and the result of calling function `f`. Both _x_ and _f_ are expected to be defined by the evaluated script. For example,
+评估脚本后，可以查询scope中的变量和函数，提取值并调用JavaScript函数。这在[RunScript3](https://github.com/mozilla/rhino/blob/master/examples/src/main/java/RunScript3.java)示例中进行了说明。这个示例增加了打印变量_x_的值以及调用函数`f`并打印其结果的功能。_x_和_f_都需要由评估的脚本定义。例如：
 
 ```sh
 $ java RunScript3 "x = 7"
 x = 7
-f is undefined or not a function.
+f未定义或不是函数。
 $ java RunScript3 "function f(a) { return a; }"
-x is not defined.
+x未定义。
 f("my args") = my arg
 ```
 
-### Using JavaScript variables
+### 使用JavaScript变量
 
-To print out the value of _x_, we add the following code:
+要打印_x_的值，我们添加以下代码：
 
 ```java
 Object x = scope.get("x", scope);
 if (x == Scriptable.NOT_FOUND) {
-    System.out.println("x is not defined.");
+    System.out.println("x未定义。");
 } else {
     System.out.println("x = " + Context.toString(x));
 }
 ```
 
-### Calling JavaScript functions
+### 调用JavaScript函数
 
-To get the function _f_, call it, and print the result, we add this code:
+要获取函数_f_，调用它，并打印结果，我们添加以下代码：
 
 ```java
 Object fObj = scope.get("f", scope);
 if (!(fObj instanceof Function)) {
-    System.out.println("f is undefined or not a function.");
+    System.out.println("f未定义或不是函数。");
 } else {
     Object functionArgs[] = { "my arg" };
     Function f = (Function)fObj;
@@ -179,17 +179,17 @@ if (!(fObj instanceof Function)) {
 }
 ```
 
-## JavaScript host objects
+## JavaScript宿主对象
 
-### Defining Host Objects
+### 定义宿主对象
 
-Custom host objects can implement special JavaScript features like dynamic properties.
+自定义宿主对象可以实现特有的JavaScript功能，比如动态属性。
 
-### Counter example
+### 计数器示例
 
-The [Counter example](https://github.com/mozilla/rhino/blob/master/examples/src/main/java/Counter.java) is a simple host object. We'll go through it method by method below.
+[计数器示例](https://github.com/mozilla/rhino/blob/master/examples/src/main/java/Counter.java)是一个简单的宿主对象。我们下面将按方法逐步讲解。
 
-It's easy to try out new host object classes in the shell using its built-in `defineClass` function. We'll see how to add it to RunScript later. (Note that because the `java -jar` option preempts the rest of the classpath, we can't use that and access the `Counter` class.)
+在壳中使用内置的`defineClass`函数，可以轻松尝试新的宿主对象类。稍后我们将看到如何将其添加到RunScript中。（注意，因为`java -jar`选项会预先执行其余的类路径，我们无法使用它访问`Counter`类。
 
 ```sh
 $ java -cp "js.jar;examples" org.mozilla.javascript.tools.shell.Main
@@ -207,15 +207,15 @@ js> c.count
 0
 ```
 
-### Counter's constructors
+### Counter的构造器
 
-The zero-argument constructor is used by Rhino runtime to create instances. For the counter example, no initialization work is needed, so the implementation is empty.
+无参的构造器由Rhino运行时用于创建实例。对于计数器示例，不需要初始化工作，所以实现是空的。
 
 ```java
 public Counter () { }
 ```
 
-The method `jsConstructor` defines the JavaScript constructor that was called with the expression `new Counter(7)` in the JavaScript code above.
+`jsConstructor`方法定义了用上述JavaScript代码中的表达式`new Counter(7)`调用的JavaScript构造器。
 
 ```java
 @JSConstructor
@@ -224,9 +224,9 @@ public void Counter(int a) {
 }
 ```
 
-### Class name
+### 类名
 
-The class name is defined by the `getClassName` method. This is used to determine the name of the constructor.
+`getClassName`方法定义了类名。这用于确定构造器的名称。
 
 ```java
 public String getClassName() {
@@ -234,9 +234,9 @@ public String getClassName() {
 }
 ```
 
-### Dynamic properties
+### 动态属性
 
-Dynamic properties are defined by methods annotated with **@JSGetter** or **@JSSetter**. The method `getCount` defines the `count` property.
+动态属性由带有**@JSGetter**或**@JSSetter**注解的方法定义。方法`getCount`定义了`count`属性。
 
 ```java
 @JSGetter
@@ -245,11 +245,11 @@ public int getCount() {
 }
 ```
 
-The expression `c.count` in the JavaScript code above results in a call to this method.
+上述JavaScript代码中表达式`c.count`会调用这个方法。
 
-### Defining JavaScript "methods"
+### 定义JavaScript“方法”
 
-Methods can be defined using the **@JSFunction** annotation. Here we define the `resetCount` method for JavaScript.
+可以使用**@JSFunction**注解定义方法。这里我们为JavaScript定义了`resetCount`方法。
 
 ```java
 @JSFunction
@@ -258,24 +258,24 @@ public void resetCount() {
 }
 ```
 
-The call `c.resetCount()` above calls this method.
+上述调用`c.resetCount()`会调用此方法。
 
-### Adding Counter to RunScript
+### 添加Counter到RunScript
 
-Now take a look at the [RunScript4 example](https://github.com/mozilla/rhino/blob/master/examples/src/main/java/RunScript4.java). It's the same as RunScript except for two additions. The method `ScriptableObject.defineClass` uses a Java class to define the Counter "class" in the top-level scope:
+现在看看[RunScript4示例](https://github.com/mozilla/rhino/blob/master/examples/src/main/java/RunScript4.java)。它与RunScript相同，除了两处更改。方法`ScriptableObject.defineClass`使用一个Java类在顶级scope定义了Counter“类”：
 
 ```java
 ScriptableObject.defineClass(scope, Counter.class);
 ```
 
-Now we can reference the `Counter` object from our script:
+现在我们可以在脚本中引用`Counter`对象：
 
 ```sh
 $ java RunScript4 "c = new Counter(3); c.count;
 c.count;"
 ```
 
-It also creates a new instance of the `Counter` object from within our Java code, constructing it with the value 7, and assigning it to the top-level variable `myCounter`:
+它还从我们的Java代码中创建了一个`Counter`对象的实例，用值7进行构造并将其分配给顶级变量`myCounter`：
 
 ```java
 Object[] arg = { new Integer(7) };
@@ -283,7 +283,7 @@ Scriptable myCounter = cx.newObject(scope, "Counter", arg);
 scope.put("myCounter", scope, myCounter);
 ```
 
-Now we can reference the `myCounter` object from our script:
+现在我们可以在脚本中引用`myCounter`对象：
 
 ```sh
 $ java RunScript3 'RunScript4 'myCounter.count; myCounter.count'

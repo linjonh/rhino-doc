@@ -6,62 +6,75 @@ nav_order: 12
 
 # Rhino 1.6R6
 
-Rhino 1.6R6 引入了多项新功能。
 
-## JavaScript 1.5 新特性
+---
+Rhino 1.6R6 添加了多个新功能。
 
-Rhino 现在支持之前版本中未实现的其余 JavaScript 1.5 特性。
+## JavaScript 1.5 功能
 
-### JavaScript 1.5: "严格"模式与新警告消息
+Rhino 现在支持之前版本未实现的 JavaScript 1.5 的剩余功能。
 
-有关 JavaScript 严格模式的详细描述，请参阅 [JavaScript 严格模式](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Strict_mode)。
+### JavaScript 1.5：带有新警告信息的“严格”模式
 
-简要来说，Rhino 在严格模式下报告以下操作的警告：
+参见 [JavaScript 严格模式](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode) 了解 JavaScript 严格模式的描述。
 
-- 对未定义变量的赋值
+简单来说，在严格模式下，Rhino 会对以下情况报告警告：
+
+- 给未定义的变量赋值
 - 引用未定义的属性
-- 函数中不一致的返回语句
+- 函数中的不一致返回语句
 - 重复的参数名称
-- 变量隐藏参数
-- 条件语句中的赋值（注意：你可以通过在赋值周围添加额外的一对括号来抑制此警告）
-- 对象初始化器中的尾逗号（注意：这在 Rhino 中始终是一个完整的错误）
+- 隐藏参数的变量
+- 条件中的赋值操作（_注意：可以通过在赋值操作周围添加额外的一组括号来忽略此警告_）
+- 对象初始化器中的尾随逗号（_注意：在 Rhino 中，这始终是完全错误_）
 - 间接调用 eval
 - 无用的表达式
 
-要为 Rhino 外壳启用严格模式，请在命令行中添加 `-strict`。如果你直接使用 API，可以设置上下文功能 `FEATURE_STRICT_MODE`。
+要为 Rhino shell 启用严格模式，请在命令行中添加 `-strict`。如果直接使用 API，请设置 Context 特性 `FEATURE_STRICT_MODE`。
 
-还可以将所有警告视为错误。只需在外壳命令行中添加 `-fatal-warnings`，或设置上下文功能 `FEATURE_WARNING_AS_ERROR`。
+还可以将所有警告视为错误。可以在 shell 命令行中添加 `-fatal-warnings`，或者设置 Context 特性 `FEATURE_WARNING_AS_ERROR`。
 
-有关更多详细信息，请参阅 [bug 378790](https://bugzilla.mozilla.org/show_bug.cgi?id=378790)。
+详细信息参见 [bug 378790](https://bugzilla.mozilla.org/show_bug.cgi?id=378790)。
 
-### JavaScript 1.5: getters 和 setters
+### JavaScript 1.5：Getters 和 Setters
 
-此部分内容在原文中未提供完整说明，但通常情况下，这涉及对 JavaScript getter 和 setter 的支持，用于定义对象属性的访问器和修改器。这些特性允许更精细地控制属性访问和修改行为。
+参见 [定义 Getters 和 Setters](https://developer.mozilla.org/en-US/docs/JavaScript/Guide/Working_with_Objects#Defining_getters_and_setters) 了解 JavaScript 1.5 的参考内容。
 
-### JavaScript 1.5: const 关键字
+### JavaScript 1.5：`const` 关键字
 
-`const` 关键字用于声明常量，即在初始化后无法被重新赋值的变量。这是一个重要的特性，有助于提高代码的可靠性和安全性。
+参见 [const](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Statements/const) 了解 JavaScript 1.5 的参考内容。
 
-## 新的 E4X 实现
+## 使用 Java 1.5 DOM 的新 E4X 实现
 
-此部分内容在原文中未提供详细说明，但通常 E4X（ECMAScript for XML）是 JavaScript 用于处理 XML 的扩展。新实现可能带来了性能或功能上的改进。
+自 Rhino 1.6R1 起，Rhino 使用 Apache XMLBeans 库来支持 E4X。在 Rhino 1.6R6 中，E4X 支持被重写为完全依赖 Java 1.5 原生支持的 DOM3 API。
+使用早于 Java 1.5 的用户，如果拥有支持 DOM3 的 XML 解析器，可以使用 Java 的认可标准覆盖机制来使用 DOM3。
+从此版本开始，如果类路径上存在 XMLBeans 类，则 XMLBeans 实现仍然是默认设置；否则，如果存在 DOM3，则使用原生 DOM 实现。
+如果既不存在 XMLBeans，也不存在 DOM3，则无法使用 E4X。
 
 ## 与 Java 安全架构的集成
 
-Rhino 1.6R6 提供了与 Java 安全架构的更深度集成，增强了安全性和权限管理。这使得在 Java 环境中使用 Rhino 更加安全可靠。
+Rhino 1.6R6 添加了 org.mozilla.javascript.PolicySecurityController 作为 org.mozilla.javascript.SecurityController 的具体实现，这是与 Java 安全架构集成的首选方式。
+当没有使用安全控制器时，生成的类和脚本将在 Rhino 类的 ProtectionDomain 中运行。
+将对系统属性的封装访问和类加载器的创建封装到 AccessController.doPrivileged() 中，以便能够在安全环境中正常运行。
 
-## 测试驱动
+## 测试驱动程序
 
-Rhino 引入了新的测试框架和工具，以便于开发人员编写和执行单元测试。这提高了代码质量和稳定性。
+Rhino 现在附带用 Java 编写的测试驱动程序。这些驱动程序可以用于测试 Rhino，如果您对核心引擎进行任何更改。它们设计用于与基于 C 的 SpiderMonkey 引擎在 mozilla/js/tests 的 CVS 中共享的测试。
 
-## 对变量参数列表的支持
+详细了解如何使用 JsDriver 执行测试，参见 [运行 Rhino 测试](https://github.com/mozilla/rhino/blob/master/tests/testsrc/README.md)。
 
-Rhino 现在支持在函数调用中使用变量参数列表，这增加了函数调用的灵活性。例如，可以使用 `...args` 语法来处理可变数量的参数。
+## 支持使用可变参数列表调用 Java 方法和构造函数
+
+Java J2SE 5 添加了在构造函数和方法中使用可变参数列表的支持。Rhino 1.6R6 现在支持使用可变参数列表调用这些方法和构造函数。例如：
+
+```
+java.lang.System.out.format("%3.1f%s\n", 1.6, "R6");
+```
+
+将打印 `1.6R6`。
+
+更多详细信息参见 [bug 382457](https://bugzilla.mozilla.org/show_bug.cgi?id=382457)。
 
 ## Bug 修复
 
-此版本修复了多个 bugs，并对性能和稳定性进行了改进。详细信息可以在 [Bug 列表](https://bugzilla.mozilla.org/) 中找到。
-
----
-
-以上是 Rhino 1.6R6 的主要新特性和改进内容。
+此 [列表](https://bugzilla.mozilla.org/buglist.cgi?query_format=advanced&short_desc_type=allwordssubstr&short_desc=&product=Rhino%20graveyard&target_milestone=1.6R6&long_desc_type=substring&long_desc=&bug_file_loc_type=allwordssubstr&bug_file_loc=&status_whiteboard_type=allwordssubstr&status_whiteboard=&keywords_type=allwords&keywords=&bug_status=RESOLVED&bug_status=VERIFIED&bug_status=CLOSED&resolution=FIXED&emailassigned_to1=1&emailtype1=exact&email1=&emailassigned_to2=1&emailreporter2=1&emailqa_contact2=1&emailtype2=exact&email2=&bugidtype=include&bug_id=&votes=&chfieldfrom=&chfieldto=Now&chfieldvalue=&cmdtype=doit) 显示了 Rhino 1.6R6 中修复的所有 bug（以及增强功能）。

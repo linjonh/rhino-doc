@@ -6,50 +6,50 @@ title: "调试器"
 
 
 ---
-The Rhino JavaScript debugger is a GUI that allows debugging of interpreted JavaScript scripts run in Rhino. Note that this debugger **will not** work with JavaScript scripts run in the mozilla browser since Rhino is not the engine used in such environments.
+Rhino JavaScript 调试器是一个 GUI 工具，允许调试运行在 Rhino 中的解释型 JavaScript 脚本。请注意，该调试器**不能**用于调试运行在 Mozilla 浏览器中的 JavaScript 脚本，因为 Rhino 并不是此类环境中使用的引擎。
 
-![Debugger UI](../assets/images/debugger-ui.png)
+![调试器 UI](../assets/images/debugger-ui.png)
 
-Current limitations:
+当前的限制:
 
-- No breakpoint menu
+- 没有断点菜单
 
-## Using the Rhino JavaScript Debugger
+## 使用 Rhino JavaScript 调试器
 
-The Mozilla Rhino JavaScript engine includes a source-level debugger for debugging JavaScript scripts. The debugger is itself a Java program which you may run as
+Mozilla Rhino JavaScript 引擎包含一个源代码级调试器，用于调试 JavaScript 脚本。该调试器本身是一个 Java 程序，可以通过以下方式运行
 
 ```sh
-java org.mozilla.javascript.tools.debugger.Main [options] [filename.js] [script-arguments]
+java org.mozilla.javascript.tools.debugger.Main [选项] [文件名.js] [脚本参数]
 ```
 
-where the options are the same as the shell.
+其中，选项与 Shell 的选项相同。
 
-The Rhino JavaScript Debugger can debug scripts running in multiple threads and provides facilities to set and clear breakpoints, control execution, view variables, and evaluate arbitrary JavaScript code in the current scope of an executing script.
+Rhino JavaScript 调试器可以调试在多个线程中运行的脚本，并提供设置和清除断点、控制执行、查看变量以及在当前脚本范围内计算任意 JavaScript 代码的功能。
 
-|  Console Window  |  The debugger redirects the System.out, System.in, and System.err streams to an internal JavaScript console window which provides an editable command line for you to enter JavaScript code and view system output. The console window maintains a history of the commands you have entered. You may move backward and forward through the history list by pressing the Up/Down arrow keys on the keyboard.  |
-|  Opening Scripts  |  You may select the **_File->Open_** menu item on the menu bar to load JavaScript scripts contained in files. This action will display a file-selection dialog box prompting you for the location of a script to load. The selected file will be compiled and displayed in a new window.  |
-|  Running Scripts  |  You may select the **_File->Run_** menu item on the menu bar to execute JavaScript scripts contained in files. This action will display a file-selection dialog box prompting you for the location of a script to execute. The loaded script will be run in a new thread and control will be given to the debugger on its first instruction.  |
+| 控制台窗口 | 调试器将 System.out、System.in 和 System.err 流重定向到内部 JavaScript 控制台窗口，该窗口提供可编辑的命令行，允许您输入 JavaScript 代码并查看系统输出。控制台窗口会保留您输入命令的历史记录，您可以通过键盘上的上/下箭头键在历史列表中向前或向后移动。 |
+| 打开脚本 | 您可以选择菜单栏中的 **_文件->打开_** 菜单项以加载保存在文件中的 JavaScript 脚本。此操作将显示一个文件选择对话框，提示您选择要加载的脚本的位置。所选文件将被编译并显示在新窗口中。 |
+| 运行脚本 | 您可以选择菜单栏中的 **_文件->运行_** 菜单项以执行保存在文件中的 JavaScript 脚本。此操作将显示一个文件选择对话框，提示您选择要执行的脚本的位置。加载的脚本将在一个新线程中运行，并且在第一条指令时控制权将交给调试器。 |
 
-## Controlling Execution
+## 控制执行
 
-The debugger provides the following facilities for you to control the execution of scripts you are debugging:
+调试器提供以下功能，允许您控制正在调试的脚本的执行：
 
-|  Step Into  |  To single step entering any function calls, you may do any of the following:<br/> - Select the **_Debug->Step Into_**menu item on the menu bar<br/>- Press the **_Step Into_** button on the toolbar<br/>- Press the F11 key on the keyboard<br/><br/> Execution will resume. If the current line in the script contains a function call control will return to the debugger upon entry into the function. Otherwise control will return to the debugger at the next line in the current function.  |
-|  Step Over  |  To single step to the next line in the current function, you may do any of the following:<br/> - Select the **_Debug->Step Over_** menu item on the menu bar<br/>- Press the **_Step Over_** button on the toolbar<br/>- Press the F7 key on the keyboard<br/><br/> Execution will resume but control will return to the debugger at the next line in the current function or top-level script.  |
-|  Step Out  |  To continue execution until the current function returns you may do any of the following:<br/> - Select the **_Debug->Step Out_** menu item on the menu bar<br/>- Press the **_Step Out_** button on the toolbar<br/>- Press the F8 key on the keyboard<br/><br/> Execution will resume until the current function returns or a breakpoint is hit.  |
-|  Go  |  To resume execution of a script you may do any of the following:<br/> - Select the **_Debug->Go_** menu item on the menu bar<br/>- Press the **_Go_** button on the toolbar<br/>- Press the F5 key on the keyboard<br/><br/> Execution will resume until a breakpoint is hit or the script completes.  |
-|  Break  |  To stop all running scripts and give control to the debugger you may do any of the following:<br/> - Select the **_Debug->Break_** menu item on the menu bar<br/>- Press the **_Break_** button on the toolbar<br/>- Press the Pause/Break key on the keyboard  |
-|  Break on Exceptions  |  To give control to the debugger whenever a JavaScript is exception is thrown select the **_Debug->Break on Exceptions_** checkbox from the menu bar. Whenever a JavaScript exception is thrown by a script a message dialog will be displayed and control will be given to the debugger at the location the exception is raised.  |
-|  Break on Function Enter  |  Selecting **_Debug->Break on Function Enter_** will give control to the debugger whenever the execution is entered into a function or script.  |
-|  Break on Function Exit  |  Selecting **_Debug->Break on Function Return_** will give control to the debugger whenever the execution is about to return from a function or script.  |
-|  Moving Up and Down the Stack  |  The lower-left (dockable) pane in the debugger main window contains a combo-box labeled "Context:" which displays the current stack of the executing script. You may move up and down the stack by selecting an entry in the combo-box. When you select a stack frame the variables and watch windows are updated to reflect the names and values of the variables visible at that scope.  |
-|  Setting and Clearing Breakpoints  |  The main desktop of the debugger contains file windows which display the contents of each script you are debugging. You may set a breakpoint in a script by doing one of the following:<br/> - Place the cursor on the line at which you want to set a breakpoint and right-click with the mouse. This action will display a pop-up menu. Select the **_Set Breakpoint_** menu item.<br/>- Simply single-click on the line number of the line at which you want to set a breakpoint.<br/><br/> If the selected line contains executable code a red dot will appear next to the line number and a breakpoint will be set at that location.<br/><br/> You may clear breakpoint in a script by doing one of the following:<br/><br/> - Place the cursor on the line at which you want to clear a breakpoint and right-click with the mouse. This action will display a pop-up menu. Select the **_Clear Breakpoint_** menu item.<br/>- Simply single-click on the red dot or the line number of the line at which you want to clear a breakpoint.<br/><br/> The red dot will disappear and the breakpoint at that location will be cleared.  |
+| 逐步进入 | 如果要按步逐步执行并进入任意函数调用，您可以执行以下任意操作：<br/> - 选择菜单栏中的 **_调试->逐步进入_** 菜单项<br/>- 按下工具栏上的 **_逐步进入_** 按钮<br/>- 按下键盘上的 F11 键<br/><br/> 执行将继续。如果脚本中的当前行包含函数调用，控制将在进入该函数时返回调试器。否则，控制将在当前函数的下一行返回调试器。 |
+| 逐步跳过 | 如果要按步跳到当前函数的下一行，您可以执行以下任意操作：<br/> - 选择菜单栏中的 **_调试->逐步跳过_** 菜单项<br/>- 按下工具栏上的 **_逐步跳过_** 按钮<br/>- 按下键盘上的 F7 键<br/><br/> 执行将继续，但控制将在当前函数或顶级脚本的下一行返回调试器。 |
+| 逐步退出 | 如果要继续执行直到当前函数返回，您可以执行以下任意操作：<br/> - 选择菜单栏中的 **_调试->逐步退出_** 菜单项<br/>- 按下工具栏上的 **_逐步退出_** 按钮<br/>- 按下键盘上的 F8 键<br/><br/> 执行将继续直到当前函数返回或命中断点。 |
+| 继续执行 | 如果要继续执行脚本，您可以执行以下任意操作：<br/> - 选择菜单栏中的 **_调试->继续执行_** 菜单项<br/>- 按下工具栏上的 **_继续执行_** 按钮<br/>- 按下键盘上的 F5 键<br/><br/> 执行将继续直到命中断点或脚本完成。 |
+| 中断 | 如果要停止所有正在运行的脚本并将控制交给调试器，您可以执行以下任意操作：<br/> - 选择菜单栏中的 **_调试->中断_** 菜单项<br/>- 按下工具栏上的 **_中断_** 按钮<br/>- 按下键盘上的 Pause/Break 键 |
+| 异常中断 | 如果要在每次 JavaScript 抛出异常时将控制交给调试器，请从菜单栏中选择 **_调试->异常中断_** 复选框。每当脚本抛出 JavaScript 异常时，将显示一个消息对话框，并且调试器将在异常被抛出的代码位置获得控制权。 |
+| 函数进入中断 | 选择 **_调试->函数进入中断_** 后，每次执行进入函数或脚本时控制权都会转交给调试器。 |
+| 函数退出中断 | 选择 **_调试->函数退出中断_** 后，每次执行即将从函数或脚本返回时控制权都会转交给调试器。 |
+| 上下移动堆栈 | 调试器主窗口左下角（可停靠）的窗格中包含一个名为 "Context:" 的组合框，显示当前执行脚本的堆栈。您可以通过选择组合框中的某个条目在堆栈中上下移动。当您选择一个堆栈帧时，变量窗口和监视窗口将更新为该范围内可见变量的名称和值。 |
+| 设置和清除断点 | 调试器的主桌面包含显示您正在调试的每个脚本内容的文件窗口。您可以通过执行以下任意操作在脚本中设置断点：<br/> - 将光标放置在要设置断点的行上并右键单击。这将显示一个弹出菜单。选择 **_设置断点_** 菜单项。<br/>- 简单地单击您要设置断点的行号。<br/><br/> 如果所选行包含可执行代码，则红点将出现在行号旁边，并在该位置设置断点。<br/><br/> 您可以通过以下任意操作清除脚本中的断点：<br/><br/> - 将光标放置在要清除断点的行上并右键单击。这将显示一个弹出菜单。选择 **_清除断点_** 菜单项。<br/>- 简单地单击红点或要清除断点的行号。<br/><br/> 红点将消失，并且该位置的断点将被清除。 |
 
-## Viewing Variables
+## 查看变量
 
-The lower-left (dockable) pane in the debugger main window contains a tab-pane with two tabs, labeled "this" and "Locals". Each pane contains a tree-table which displays the properties of the current object and currently visible local variables, respectively.
+调试器主窗口左下角（可停靠）的窗格包含一个标签页容器，带有 "this" 和 "局部变量" 两个标签。每个窗格包含一个树形表，分别显示当前对象的属性和当前可见的局部变量。
 
-|  This  |  The properties of the current object are displayed in the **_this_** table. If a property is itself a JavaScript object the property may be expanded to show its sub-properties. The **_this_** table is updated each time control returns to the debugger or when you change the stack location in the **_Context:_** window.  |
-|  Locals  |  The local variables of the current function are displayed in the **_Locals_** table. If a variable is itself a JavaScript object the variable may be expanded to show its sub-properties. The **_Locals_** table is updated each time control returns to the debugger or when you change the stack location in the **_Context:_** window  |
-|  Watch Window  |  You may enter arbitrary JavaScript expressions in the **_Watch:_** table located in the lower-right (dockable) pane in the debugger main window. The expressions you enter are re-evaluated in the current scope and their current values displayed each time control returns to the debugger or when you change the stack location in the **_Context:_** window.  |
-|  Evaluation Window  |  The **_Evaluate_** pane located in the lower-right (dockable) pane in the debugger main window contains an editable command line where you may enter arbitrary JavaScript code. The code is evaluated in the context of the current stack frame. The window maintains a history of the commands you have entered. You may move backward or forward through the history by pressing the Up/Down arrow keys on the keyboard.  |
+| 当前对象 | 当前对象的属性显示在 **_this_** 表中。如果某个属性本身是 JavaScript 对象，则可以展开该属性以查看其子属性。每当控制返回到调试器或当您更改 **_Context:_** 窗口中的堆栈位置时，**_this_** 表都会更新。 |
+| 局部变量 | 当前函数的局部变量显示在 **_局部变量_** 表中。如果某个变量本身是 JavaScript 对象，则可以展开该变量以查看其子属性。每当控制返回到调试器或当您更改 **_Context:_** 窗口中的堆栈位置时，**_局部变量_** 表都会更新。 |
+| 监视窗口 | 您可以在调试器主窗口右下角（可停靠）窗格中的 **_监视:_** 表中输入任意 JavaScript 表达式。您输入的表达式将在当前范围内重新计算，并在每次控制返回到调试器或当您更改 **_Context:_** 窗口中的堆栈位置时显示其当前值。 |
+| 评估窗口 | 调试器主窗口右下角（可停靠）窗格中的 **_评估_** 窗格包含一个可编辑的命令行，您可以在其中输入任意 JavaScript 代码。代码将在当前堆栈帧的上下文中进行评估。该窗口保存您输入的命令的历史记录。您可以通过按键盘上的上/下箭头键在历史记录中向前或向后移动。 |
