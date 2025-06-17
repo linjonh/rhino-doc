@@ -89,7 +89,7 @@ const config = {
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
-        title: '中文文档',
+        title: 'Chinese Doc',
         logo: {
           alt: 'My Site Logo',
           src: 'img/logo.svg',
@@ -99,7 +99,7 @@ const config = {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
-            label: 'Rhino文档',
+            label: 'Rhino Doc',
           },
           // {to: '/blog', label: 'Blog', position: 'left'},
           {
@@ -117,24 +117,24 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: '文档',
+            title: 'Doc',
             items: [
               {
-                label: 'Rhino文档',
+                label: 'Rhino Doc',
                 to: '/docs/',
               },
               {
-                label: 'JavaAPI文档',
+                label: 'JavaAPI Doc',
                 href: 'https://javadoc.io/doc/org.mozilla/rhino',
               },
               {
-                label: "Kangax兼容表",
+                label: "Kangax Compat",
                 href: 'https://mozilla.github.io/rhino/compat/engines.html',
               },
             ],
           },
           {
-            title: '社区',
+            title: 'Community',
             items: [
               {
                 label: 'Stack Overflow',
@@ -151,7 +151,7 @@ const config = {
             ],
           },
           {
-            title: '更多',
+            title: 'More',
             items: [
               // { label: 'Blog', to: '/blog', },
               {

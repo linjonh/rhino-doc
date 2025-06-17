@@ -1,0 +1,18 @@
+{
+  "title": {
+    "message": "中文文档",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "网站logo",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Rhino Doc": {
+    "message": "Rhino 文档",
+    "description": "Navbar item with label Rhino Doc"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  }
+}

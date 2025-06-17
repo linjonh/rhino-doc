@@ -1,0 +1,30 @@
+{
+  "version.label": {
+    "message": "下一版本",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.Releases": {
+    "message": "版本",
+    "description": "The label for category Releases in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Docs": {
+    "message": "文档",
+    "description": "The label for category Docs in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Tutorials": {
+    "message": "教程",
+    "description": "The label for category Tutorials in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Tools": {
+    "message": "工具",
+    "description": "The label for category Tools in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.link.JavaAPI Doc": {
+    "message": "JavaAPI 文档",
+    "description": "The label for link JavaAPI Doc in sidebar tutorialSidebar, linking to https://javadoc.io/doc/org.mozilla/rhino"
+  },
+  "sidebar.tutorialSidebar.link.Kangax Compat": {
+    "message": "Kangax 兼容表",
+    "description": "The label for link Kangax Compat in sidebar tutorialSidebar, linking to https://mozilla.github.io/rhino/compat/engines.html"
+  }
+}
