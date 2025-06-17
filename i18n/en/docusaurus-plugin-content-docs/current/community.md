@@ -5,7 +5,6 @@ nav_order: 3
 # Community
 
 
----
 Have a question that you can't find answer to in the [Rhino faq](./docs/faq.md)? Here are some additional resources for help:
 
 ## Mailing List

@@ -4,7 +4,6 @@ title: "FAQ"
 # FAQ
 
 
----
 
 ## How do I create a Java array from JavaScript?
 

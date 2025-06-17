@@ -6,7 +6,6 @@ has_toc: false
 ---
 # Releases
 
----
 Release Notes and zip files containing both the source code and a binary) are available from Rhino 1.4R3 onwards, which is the first public release.
 
 As of Rhino 1.7R5 development and releases are done through the [Rhino repository](https://github.com/mozilla/rhino) on GitHub.
@@ -70,7 +69,6 @@ The Rhino artifacts are also available through [MVNrepository](https://mvnreposi
 |  Rhino 1.5R1  |  2000-09-10  |  [Changes in 1.5R1](new_in_rhino_1.5r1.md)  |  [zip](https://ftp.mozilla.org/pub/mozilla.org/js/older-packages/rhino15R1.zip)  |
 |  Rhino 1.4R3  |  1999-05-10  |  Initial public release  |  [zip](https://ftp.mozilla.org/pub/mozilla.org/js/older-packages/rhino14R3.zip)  |
 
----
 
 [^1]: Rhino Tools consist of:
     - [Debugger](../tools/debugger.md): Visual, Swing-based Debugger for Rhino

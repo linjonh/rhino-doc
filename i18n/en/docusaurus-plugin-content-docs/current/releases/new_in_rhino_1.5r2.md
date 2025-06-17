@@ -7,7 +7,6 @@ nav_order: 2
 # Rhino 1.5R2
 
 
----
 This is a log of significant changes since the release of Rhino 1.5 Release 1.
 
 ## Graphical debugger

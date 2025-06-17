@@ -7,7 +7,6 @@ nav_order: 17
 # Rhino 1.7R4
 
 
----
 - 更新许可到 [MPL 2.0](https://www.mozilla.org/MPL/2.0/)
 - 使用 `+` 进行字符串拼接速度更快
 - Java 类生成更新和修复

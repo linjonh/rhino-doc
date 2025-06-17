@@ -7,7 +7,6 @@ nav_order: 14
 # Rhino 1.7R1
 
 
----
 Rhino 1.7R1 是一个主要的功能更新版本。
 
 ## JavaScript 1.7 功能

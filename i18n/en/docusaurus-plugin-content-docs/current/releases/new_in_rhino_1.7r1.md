@@ -7,7 +7,6 @@ nav_order: 14
 # Rhino 1.7R1
 
 
----
 Rhino 1.7R1 is a major feature release.
 
 ## JavaScript 1.7 features

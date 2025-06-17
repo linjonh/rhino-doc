@@ -7,7 +7,6 @@ nav_order: 20.1
 # Rhino 1.7.7.1
 
 
----
 This release fixes a few critical bugs that were affecting code in the field:
 - Improve String.prototype.repeat to work more efficiently and to not overflow
 - Fix CallSite.isNative() and isTopLevel() so that they do not throw fatal errors

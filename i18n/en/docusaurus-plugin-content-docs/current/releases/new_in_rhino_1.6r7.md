@@ -7,7 +7,6 @@ nav_order: 13
 # Rhino 1.6R7
 
 
----
 Rhino 1.6R7 is a minor bug fix release following the major feature release [Rhino 1.6R6](new_in_rhino_1.6r6.md).
 
 The following bugs have been fixed:

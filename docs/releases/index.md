@@ -6,7 +6,6 @@ has_toc: false
 ---
 # 发布版本
 
----
 从 Rhino 1.4R3 开始（即首次公开发布版），提供发行说明以及包含源码和二进制文件的 zip 文件。
 
 从 Rhino 1.7R5 开始，开发和发布通过 GitHub 上的 [Rhino 仓库](https://github.com/mozilla/rhino) 完成。
@@ -70,7 +69,6 @@ Rhino 工件也可以通过 [MVNrepository](https://mvnrepository.com) 获取，
 | Rhino 1.5R1 | 2000-09-10 | [1.5R1 的变更](new_in_rhino_1.5r1.md) | [zip](https://ftp.mozilla.org/pub/mozilla.org/js/older-packages/rhino15R1.zip) |
 | Rhino 1.4R3 | 1999-05-10 | 初次公开发布版本 | [zip](https://ftp.mozilla.org/pub/mozilla.org/js/older-packages/rhino14R3.zip) |
 
----
 
 [^1]: Rhino 工具包括：
     - [调试器](../tools/debugger.md)：基于 Swing 的视觉化调试器

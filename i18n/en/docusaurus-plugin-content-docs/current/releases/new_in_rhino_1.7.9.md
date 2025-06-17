@@ -7,7 +7,6 @@ nav_order: 22
 # Rhino 1.7.9
 
 
----
 This release fixes a [potential ArrayIndexOutOfBoundsException](https://github.com/mozilla/rhino/issues/390) that was introduced in 1.7.8. Since it's potentially pretty serious, projects currently using 1.7.8 should switch to this new release.
 
 

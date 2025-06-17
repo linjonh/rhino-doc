@@ -7,7 +7,6 @@ nav_order: 16
 # Rhino 1.7R3
 
 
----
 ### ECMAScript 5 支持
 
 ECMAScript 5 支持已通过 Raphael Speyer 在 Google 夏季代码项目中的努力添加到 Rhino，项目由 Norris Boyd 进行指导。Rhino 1.7R3 支持大部分 ES5 功能，但不支持严格模式。

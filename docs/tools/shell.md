@@ -5,7 +5,6 @@ title: "Shell"
 # Shell
 
 
----
 JavaScript Shell提供了一种简单的方法，可以以批处理模式运行脚本，或者在交互式环境中进行探索式编程。
 
 ## 调用Shell

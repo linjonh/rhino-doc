@@ -5,7 +5,6 @@ title: "Shell"
 # Shell
 
 
----
 The JavaScript shell provides a simple way to run scripts in batch mode or an interactive environment for exploratory programming.
 
 ## Invoking the Shell

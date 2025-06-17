@@ -7,7 +7,6 @@ nav_order: 9
 # Rhino 1.6R3
 
 
----
 发布日期: 2006-07-24
 
 Rhino 1.6R3 是 Rhino 的一个新的维护版本。Rhino 1.6Rx 新增了对 ECMAScript for XML (E4X) 的支持。有关更多详细信息，请参阅 [Rhino 1.6R1 的更改日志](new_in_rhino_1.6r1.md)。

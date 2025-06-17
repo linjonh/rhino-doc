@@ -4,7 +4,6 @@ title: Configuration
 # Configuration
 
 
----
 ## Optimization levels
 
 The currently supported optimization settings are:

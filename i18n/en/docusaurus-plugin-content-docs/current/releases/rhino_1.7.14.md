@@ -7,7 +7,6 @@ nav_order: 27
 # Rhino 1.7.14
 
 
----
 # Links
 * [1.7.14 milestone](https://github.com/mozilla/rhino/milestone/14)
 * [All merged PRs](https://github.com/mozilla/rhino/pulls?q=is%3Apr+merged%3A2020-09-02..2022-01-06+)

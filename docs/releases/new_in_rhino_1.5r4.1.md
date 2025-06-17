@@ -7,7 +7,6 @@ nav_order: 5
 # Rhino 1.5R4.1
 
 
----
 1.5R4.1 是一个修复版本，主要解决了 1.5R4 中发现的 1.5R3 的回归问题。与 1.5R4 相比，唯一的可见 API 变化是 [org.mozilla.javascript.Context](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Context.html) 类中新增的两个方法：[getApplicationClassLoader()](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Context.html#getApplicationClassLoader-) 和 [setApplicationClassLoader(ClasssLoader)](https://javadoc.io/doc/org.mozilla/rhino/latest/org/mozilla/javascript/Context.html#setApplicationClassLoader-java.lang.ClassLoader-)。它们允许控制 Rhino 访问应用程序类时使用的类加载器。
 有关 1.5R4 和 1.5R3 的差异，请参阅 [1.5R4 更新日志](new_in_rhino_1.5r4.md)。
 

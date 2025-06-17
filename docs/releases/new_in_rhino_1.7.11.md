@@ -7,7 +7,6 @@ nav_order: 24
 # Rhino 1.7.11
 
 
----
 此版本包括实现了一些缺失的JavaScript语言功能，包括：
 - 提升解析器及其关联的AST的准确性和可靠性。
 - Map、Set、WeakMap 和 WeakSet 类。

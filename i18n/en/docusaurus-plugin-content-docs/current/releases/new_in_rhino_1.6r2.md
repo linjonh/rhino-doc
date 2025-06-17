@@ -7,7 +7,6 @@ nav_order: 8
 # Rhino 1.6R2
 
 
----
 Release Date: 2005-09-19
 
 Rhino 1.6R2 is a new maintenance release of Rhino. New to Rhino 1.6Rx is support for ECMAScript for XML (E4X). See [Change Log for Rhino 1.6R1](new_in_rhino_1.6r1.md) for more details.

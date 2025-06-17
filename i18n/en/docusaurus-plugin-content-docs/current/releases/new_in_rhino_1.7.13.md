@@ -7,7 +7,6 @@ nav_order: 26
 # Rhino 1.7.13
 
 
----
 ## Script Engine support
 
 Now that Nashorn has been deprecated, a number of people have asked about using Rhino with the standard Java "ScriptEngine" interface. This release supports that.

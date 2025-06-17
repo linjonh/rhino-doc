@@ -5,7 +5,6 @@ nav_order: 4
 # 历史
 
 
----
 Rhino 的名字来源于 [O'Reilly](https://www.ora.com/) 出版的一本关于 JavaScript 的书籍封面上的犀牛图案。
 
 Rhino 项目于 1997 年秋天在 Netscape 启动。当时，Netscape 计划开发一个完全用 Java 编写的 Navigator 版本，因此需要一个用 Java 编写的 JavaScript 实现。当 Netscape 停止了“Javagator”（这一项目的名称）的开发时，Rhino 神奇地避开了被砍掉的命运（据传高管们“忘记”了它的存在）。一段时间内，几家主要公司（包括 Sun）许可使用 Rhino 用于其产品，并支付 Netscape 相应费用，从而使 Rhino 的开发得以继续。如今，Rhino 是 Mozilla 开源代码库的一部分。

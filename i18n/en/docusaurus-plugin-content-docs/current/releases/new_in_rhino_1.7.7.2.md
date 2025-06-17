@@ -7,7 +7,6 @@ nav_order: 20.2
 # Rhino 1.7.7.2
 
 
----
 This release contains fixes for a few important bugs that have caught Rhino users out in the field.
 
 - Do not throw a Java exception from array.prototype.sort() no matter how weird the user-supplied comparator function is. This is a major difference between JavaScript and Java and has caused us to avoid using "Arrays.sort" on JavaScript arrays.

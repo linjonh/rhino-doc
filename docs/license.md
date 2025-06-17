@@ -5,7 +5,6 @@ nav_order: 5
 # 许可
 
 
----
 
 Rhino 是开源软件，自 1.7R4 版本起，Rhino 适用于 [MPL 2.0](https://github.com/mozilla/rhino/blob/master/LICENSE.txt)。 1.7R4 之前的版本使用 [MPL 1.1/GPL 2.0](https://www.mozilla.org/MPL/) 许可证发布。
 

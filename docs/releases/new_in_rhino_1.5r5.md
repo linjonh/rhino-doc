@@ -7,7 +7,6 @@ nav_order: 6
 # Rhino 1.5R5
 
 
----
 这是 Rhino 1.5 第五次发布中的重要变更记录。
 
 ## 将 JavaScript 函数封装为 Java 接口

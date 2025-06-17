@@ -5,7 +5,6 @@ nav_order: 2
 # Roadmap
 
 
----
 The following are some ideas of ways people can contribute to Rhino. If something below strikes your fancy, write to norrisboyd (at) gmail (dot) com.
 
 ## Code Modernization

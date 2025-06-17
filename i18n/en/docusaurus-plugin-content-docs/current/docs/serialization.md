@@ -5,7 +5,6 @@ title: "Serialization"
 # Serialization
 
 
----
 Beginning with Rhino 1.5 Release 3 it is possible to serialize JavaScript objects, including functions and scripts. However, serialization of code in compilation mode has some significant limitations. Serialization provides a way to save the state of an object and write it out to a file or send it across a network connection.
 
 ## Simple serialization example

@@ -5,7 +5,6 @@ title: "Examples"
 # Examples
 
 
----
 Examples have been provided that show how to control the JavaScript engine and how  to implement scriptable host objects. All the examples are in the git tree at [examples/src/main](https://github.com/mozilla/rhino/tree/master/examples/src/main/).
 
 ## Sample Scripts

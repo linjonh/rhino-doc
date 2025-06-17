@@ -7,7 +7,6 @@ nav_order: 17
 # Rhino 1.7R4
 
 
----
 - Update license to [MPL 2.0](https://www.mozilla.org/MPL/2.0/)
 - Make string concatenation with `+` fast
 - Java class generation updates and fixes

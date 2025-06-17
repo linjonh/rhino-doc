@@ -7,7 +7,6 @@ nav_order: 19
 # Rhino 1.7.6
 
 
----
 Merged many of the outstanding pull requests in the GitHub repo.
 
 High-level changes include the following:

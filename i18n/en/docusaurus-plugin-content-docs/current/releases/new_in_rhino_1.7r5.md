@@ -7,7 +7,6 @@ nav_order: 18
 # Rhino 1.7R5
 
 
----
 This release contains fixes that have been sitting in the master branch for some time -- see the releases notes below.
 
 The next release will be 1.8.0, and it will include many existing pull requests.

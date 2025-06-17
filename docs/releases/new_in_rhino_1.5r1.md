@@ -7,7 +7,6 @@ nav_order: 1
 # Rhino 1.5R1
 
 
----
 ## ECMA 262 第3版符合性
 Rhino 1.5实现了JavaScript 1.5，符合ECMA 262 第3版（有时也称为“ECMAScript”）。第3版对JavaScript 1.4中已有的几个特性进行了标准化，包括：
 - 正则表达式

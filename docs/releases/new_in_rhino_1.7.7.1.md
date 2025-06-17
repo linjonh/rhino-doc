@@ -7,7 +7,6 @@ nav_order: 20.1
 # Rhino 1.7.7.1
 
 
----
 此版本修复了一些影响实际代码的关键问题：
 - 改进 String.prototype.repeat，使其更高效并避免溢出
 - 修复 CallSite.isNative() 和 isTopLevel()，使其不抛出致命错误

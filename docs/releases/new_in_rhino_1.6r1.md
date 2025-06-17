@@ -7,7 +7,6 @@ nav_order: 7
 # Rhino 1.6R1
 
 
----
 发布日期: 2004-11-29
 
 Rhino 1.6R1 是 Rhino 的最新主要版本。它支持 ECMAScript for XML (E4X)，如 [ECMA 357 标准](https://www.ecma-international.org/wp-content/uploads/ECMA-357_2nd_edition_december_2005.pdf) 所规定。E4X 是一组语言扩展，为 JavaScript 添加了原生 XML 支持，而不会影响现有代码库。可以参考 [E4X 示例](https://github.com/mozilla/rhino/blob/master/examples/src/main/resources/E4X/e4x_example.js)，了解各种 E4X 构造及其在 JavaScript 代码中的用法。

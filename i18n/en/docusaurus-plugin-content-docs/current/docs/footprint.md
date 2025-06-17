@@ -4,7 +4,6 @@ title: "Small Footprint"
 # Small Footprint
 
 
----
 A few changes can be made to reduce the footprint of Rhino for
 embeddings where space is at a premium. On a recent build, the
 length of js.jar was 603,127 bytes corresponding to 1,171,708

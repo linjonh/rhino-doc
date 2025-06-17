@@ -7,7 +7,6 @@ nav_order: 15
 # Rhino 1.7R2
 
 
----
 ## Java API for Continuations
 
 Rhino has supported Continuations for some time now, but there wasn't a great way to interact with continuations from Java. Continuations have been useful with in server-side scripting, since it allows for saving and restarting JavaScript execution, possibly with serializing the execution state when stopped. With Rhino 1.7R2, methods in `org.mozilla.javascript.Context` allow for control from Java:

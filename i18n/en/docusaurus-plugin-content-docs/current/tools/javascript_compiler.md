@@ -5,7 +5,6 @@ title: "JavaScript compiler"
 # JavaScript compiler
 
 
----
 
 ## Overview
 

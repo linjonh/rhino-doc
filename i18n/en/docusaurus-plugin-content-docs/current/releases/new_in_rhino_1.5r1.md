@@ -7,7 +7,6 @@ nav_order: 1
 # Rhino 1.5R1
 
 
----
 ## ECMA 262 Edition 3 Conformance
 Rhino 1.5 implements JavaScript 1.5, which conforms to ECMA 262 Edition 3 (sometimes referred to as "ECMAScript"). Edition 3 standardized several features of JavaScript that were present in JavaScript 1.4, including:
 - regular expressions

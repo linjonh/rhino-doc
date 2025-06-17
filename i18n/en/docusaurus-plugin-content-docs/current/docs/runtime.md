@@ -5,7 +5,6 @@ title: "JavaScript Runtime"
 # JavaScript Runtime
 
 
----
 
 ## Interpretation
 

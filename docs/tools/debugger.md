@@ -5,7 +5,6 @@ title: "调试器"
 # 调试器
 
 
----
 Rhino JavaScript 调试器是一个 GUI 工具，允许调试运行在 Rhino 中的解释型 JavaScript 脚本。请注意，该调试器**不能**用于调试运行在 Mozilla 浏览器中的 JavaScript 脚本，因为 Rhino 并不是此类环境中使用的引擎。
 
 ![调试器 UI](../assets/images/debugger-ui.png)

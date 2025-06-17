@@ -5,7 +5,6 @@ title: "Scopes and contexts"
 # Scopes and contexts
 
 
----
 Before using Rhino in a concurrent environment, it is important to understand the distinction between Contexts and scopes. Both are required to execute scripts, but they play different roles. Simple embeddings of Rhino probably won't need any of the information here, but more complicated embeddings can gain performance and flexibility from the techniques described below.
 
 ## Contexts

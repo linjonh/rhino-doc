@@ -7,7 +7,6 @@ nav_order: 3
 # Rhino 1.5R3
 
 
----
 This is a log of significant changes since the release of Rhino 1.5 Release 2.
 
 ## Serialization

@@ -7,7 +7,6 @@ nav_order: 13
 # Rhino 1.6R7
 
 
----
 Rhino 1.6R7 是一个小型的漏洞修复版本，发布于主要功能版本 [Rhino 1.6R6](new_in_rhino_1.6r6.md) 之后。
 
 修复了以下漏洞：

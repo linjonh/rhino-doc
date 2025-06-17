@@ -7,7 +7,6 @@ nav_order: 15
 # Rhino 1.7R2
 
 
----
 ## Java Continuations API
 
 Rhino 已经支持 Continuations 一段时间，但之前在 Java 中与 continuations 交互并没有很好的方法。Continuations 在服务器端脚本中非常有用，因为它允许保存和重新启动 JavaScript 的执行，可能在停止时对执行状态进行序列化。在 Rhino 1.7R2 中，`org.mozilla.javascript.Context` 提供了一些方法，可以通过 Java 进行控制：

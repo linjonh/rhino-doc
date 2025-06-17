@@ -7,7 +7,6 @@ nav_order: 6
 # Rhino 1.5R5
 
 
----
 This is a log of significant changes in Rhino 1.5 Release 5.
 
 ## Wrapping of JavaScript functions as Java interfaces

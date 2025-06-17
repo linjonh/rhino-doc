@@ -7,7 +7,6 @@ nav_order: 24
 # Rhino 1.7.11
 
 
----
 This release includes implementations of a number of missing JavaScript language features, including:
 - Improvement to the accuracy and reliability of the parser and its associated AST.
 - The Map, Set, WeakMap, and WeakSet classes.

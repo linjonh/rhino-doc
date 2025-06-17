@@ -8,7 +8,6 @@ nav_order: 4
 # Rhino 1.5R4
 
 
----
 This is a log of changes since the release of Rhino 1.5 Release 3.
 
 ## Rhino debug API changes

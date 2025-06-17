@@ -7,7 +7,6 @@ nav_order: 21
 # Rhino 1.7.8
 
 
----
 Most important changes in this release:
 - JavaScript objects are no longer (somewhat) thread-safe by default
 - Rhino is resistant to "hash flooding" attacks

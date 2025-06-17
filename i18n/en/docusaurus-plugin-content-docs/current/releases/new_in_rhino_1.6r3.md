@@ -7,7 +7,6 @@ nav_order: 9
 # Rhino 1.6R3
 
 
----
 Release Date: 2006-07-24
 
 Rhino 1.6R3 is a new maintenance release of Rhino. New to Rhino 1.6Rx is support for ECMAScript for XML (E4X). See [Change Log for Rhino 1.6R1](new_in_rhino_1.6r1.md) for more details.

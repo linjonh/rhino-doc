@@ -5,7 +5,6 @@ title: "Scripting Java"
 # Scripting Java
 
 
----
 This article shows how to use Rhino to reach beyond JavaScript into Java. Scripting Java has many uses. It allows us to write powerful scripts quickly by making use of the many Java libraries available. We can test Java classes by writing scripts. We can also aid our Java development by using scripting for _exploratory programming_. Exploratory programming is the process of learning about what a library or API can do by writing quick programs that use it. As we will see, scripting makes this process easier.
 
 Note that the ECMA standard doesn't cover communication with Java (or with any external object system for that matter). All the functionality covered in this chapter should thus be considered an extension.

@@ -5,7 +5,6 @@ title: "示例"
 # 示例
 
 
----
 提供了一些示例，展示如何控制 JavaScript 引擎以及如何实现可编程的宿主对象。所有示例都在 git 仓库中的 [examples/src/main](https://github.com/mozilla/rhino/tree/master/examples/src/main/)。
 
 ## 示例脚本

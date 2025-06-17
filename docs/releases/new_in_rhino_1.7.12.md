@@ -1,15 +1,12 @@
 ---
-
 title: Rhino 1.7.12  
 parent: Releases  
 nav_order: 25  
-
 ---
 
 # Rhino 1.7.12
 
 
----
 ## XML 外部实体默认禁用
 
 从此版本开始，Rhino 默认禁用了“XML外部实体注入”，以使其更难实现。这种设置会阻止外部DTD和样式表的获取，并遵循 [OWASP速查表](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.md) 的推荐。虽然这可能会破坏一些现有的项目，但由于这种漏洞在OWASP前十名中显得重要，因此改变默认设置显得至关重要。

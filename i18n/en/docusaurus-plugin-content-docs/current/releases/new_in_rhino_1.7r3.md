@@ -7,7 +7,6 @@ nav_order: 16
 # Rhino 1.7R3
 
 
----
 ### ECMAScript 5 support
 
 ECMAScript 5 support was added to Rhino by Raphael Speyer during a Google Summer of Code project mentored by Norris Boyd. Rhino 1.7R3 supports most of ES5 except for Strict Mode.

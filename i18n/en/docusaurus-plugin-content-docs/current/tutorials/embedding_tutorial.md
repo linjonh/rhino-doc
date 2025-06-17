@@ -5,7 +5,6 @@ title: "Embedding Rhino"
 # Embedding Rhino
 
 
----
 Embedding Rhino can be done simply with good results. With more effort on the part of the embedder, the objects exposed to scripts can be customized further.
 
 This tutorial leads you through the steps from a simple embedding to more customized, complex embeddings. Fully compilable examples are provided along the way.

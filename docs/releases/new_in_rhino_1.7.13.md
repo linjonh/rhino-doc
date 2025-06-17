@@ -7,7 +7,6 @@ nav_order: 26
 # Rhino 1.7.13
 
 
----
 ## 脚本引擎支持
 
 由于 Nashorn 已被弃用，不少人询问如何在标准 Java 'ScriptEngine' 接口中使用 Rhino。本次发布对此进行了支持。

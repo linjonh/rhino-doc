@@ -7,7 +7,6 @@ nav_order: 12
 # Rhino 1.6R6
 
 
----
 Rhino 1.6R6 adds several new features.
 
 ## JavaScript 1.5 features

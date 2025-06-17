@@ -7,7 +7,6 @@ nav_order: 20
 #  Rhino 1.7.7
 
 
----
 Major changes in this release: [Release 1.7.7](https://github.com/mozilla/rhino/issues?q=milestone%3A%22Release+1.7.7%22+is%3Aclosed)
 
 Specific changes:
